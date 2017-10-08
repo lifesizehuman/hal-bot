@@ -16,8 +16,8 @@ API Reference
 
 We used the following APIs:
 
-AccuWeather
-Twitter
+- AccuWeather
+- Twitter
 
 
 Contributors:
