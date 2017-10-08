@@ -22,7 +22,7 @@ Twitter
 
 Contributors:
 
-Slater Combes
-Alessandro Maclaine
-Nathan Bernabe
-Abbey Hudson
+- Slater Combes
+- Alessandro Maclaine
+- Nathan Bernabe
+- Abbey Hudson
