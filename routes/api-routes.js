@@ -17,17 +17,18 @@ module.exports = function(app) {
   //     res.status(400).end();
   //   }
   // });
-  //
-  // app.get("/api/weather", function(req, res) {
-  //   // something something
-  // }).then(function(results) {
-  //   res.render(results);
-  // }).catch(function(err, res) {
-  //   if (err) {
-  //     res.status(400).end();
-  //   }
-  // });
-  //
+  
+  app.get("/api/weather/:search", function(req, res) {
+    var search = req.params.search;
+    var queryUrl = "http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=" + keys.info.accuKey + "&q=" + search;
+
+    request(queryUrl, function(err, response, body) {
+      if (err) throw err;
+      var info = JSON.parse(body);
+      res.render("weather", info[0]);
+    });
+  });
+  
   app.get("/api/twit/:tweet", function(req, res) {
     var Twitter = require("twitter");
     var tweet = req.params.tweet;
