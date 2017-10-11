@@ -3,10 +3,6 @@ var db = require("../models");
 module.exports = function(app) {
   app.get("/", function(req, res) {
     res.render("index");
-  }).catch(function(err, res) {
-    if (err) {
-      res.status(400).end();
-    }
   });
   //
   // app.get("/api/query", function(req, res) {
