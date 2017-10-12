@@ -1,87 +1,42 @@
-var db = require("../models");
-var keys = require("../config/keys.js");
+const db = require("../models");
+const keys = require("../config/keys.js");
+const WheresWaldo = require("../src/WheresWaldo.js");
+const ww = new WheresWaldo();
 
-var request = require("request");
+const request = require("request");
 
 module.exports = function(app) {
   app.get("/", function(req, res) {
     res.render("index");
   });
-  //
-  // app.get("/api/query", function(req, res) {
-  //   // something something
-  // }).then(function(results) {
-  //   res.render(results);
-  // }).catch(function(err, res) {
-  //   if (err) {
-  //     res.status(400).end();
-  //   }
-  // });
-  
+
+  app.get("/api/query/:q", function(req, res) {
+      let queryAction = ww.action(req.params.q);
+      let redPath = `/api/${queryAction.action}/${queryAction.query}`;
+      res.redirect(redPath);
+    });
+
   app.get("/api/weather/:search", function(req, res) {
-    var search = req.params.search;
-    var queryUrl = "http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=" + keys.info.accuKey + "&q=" + search;
+    const search = req.params.search;
+    const queryUrl = "http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=" + keys.info.accuKey + "&q=" + search;
 
     request(queryUrl, function(err, response, body) {
       if (err) throw err;
-      var info = JSON.parse(body);
+      const info = JSON.parse(body);
       res.render("weather", info[0]);
     });
   });
-  
-  app.get("/api/twitter/:term", function(req, res) {
-    var term = req.params.term;
-    var queryUrl = "https://publish.twitter.com/oembed?url=https://twitter.com/" + term;
 
-    request(queryUrl, function(response, body) {
-      console.log(body.body);
-      console.log(JSON.parse(body.body));
-      res.render("tweets", {twit: JSON.parse(body.body).html});
-      // var Twitter = require("twitter");
-      // var tweet = req.params.tweet;
-      // var searchURL = "https://api.twitter.com/1.1/users/search.json?q=" + tweet + "&page=1&count=3";
-      //
-      // var twit = new Twitter({
-      //   consumer_key: keys.twitterKeys.consumer_key,
-      //   consumer_secret: keys.twitterKeys.consumer_secret,
-      //   access_token_key: keys.twitterKeys.access_token_key,
-      //   access_token_secret: keys.twitterKeys.access_token_secret
-      // });
-      //
-      // twit.get(searchURL, function(error, tweets, response) {
-      //   if (!error) {
-      //     var handle = tweets[0].screen_name;
-      //     var realName = tweets[0].name;
-      //     var followers = tweets[0].followers_count;
-      //     var friends = tweets[0].friends_count;
-      //     var tweetCount = tweets[0].statuses_count;
-      //
-      //     var twitterURL = "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=" + handle + "&limit=20";
-      //
-      //     twit.get(twitterURL, function(tweets, response) {
-      //       var stats = {
-      //         realName: realName,
-      //         userName: handle,
-      //         tweetCount: tweetCount,
-      //         followerCount: followers,
-      //         followingCount: friends
-      //       };
-      //       res.render("tweets", stats);
-      //     });
-    });
-  });
   //
   app.get("/api/movie/:query", function(req, res) {
-    var query = req.params.query;
+    const query = req.params.query;
 
-    var queryUrl = "http://www.omdbapi.com/?t=" + query + "&y=&plot=short&apikey=40e9cece";
+    const queryUrl = "http://www.omdbapi.com/?t=" + query + "&y=&plot=short&apikey=40e9cece";
 
     request(queryUrl, function(response, body) {
-      // console.log("$$$"+Reflect.ownKeys(body));
-      // console.log("%%%"+body["body"]);
-      var content = JSON.parse(body.body);
+      const content = JSON.parse(body.body);
 
-      var values = {
+      const values = {
         title: content.Title,
         year: content.Year,
         rating: content.imdbRating,
@@ -90,21 +45,26 @@ module.exports = function(app) {
         actors: content.Actors,
         plot: content.Plot
       };
-      console.log(values);
       res.render("movies", values);
     });
   });
+
+
+  app.get("/api/wiki/:query", function(req, res) {
+    let query = req.params.query;
+    query = query.replace(/ /g, "%20");
+    const queryUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&utf8=&format=json&srsearch=${query}`;
+    request(queryUrl, function(error, body) {
+      let pageid = JSON.parse(body.body).query.search[0].pageid - 0;
+      if(pageid) {
+        res.render("wiki", {pageid:pageid});
+      } else {
+        res.render("404");
+      }
+    });
+  });
 };
-//
-// app.get("/api/wiki", function(req, res) {
-//   // something something
-// }).then(function(results) {
-//   res.render(results);
-// }).catch(function(err, res) {
-//   if (err) {
-//     res.status(400).end();
-//   }
-// });
+
 //
 // app.post("/api/search", function(req, res) {
 //   // something something recent searches of population
