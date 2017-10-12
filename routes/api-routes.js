@@ -65,13 +65,3 @@ module.exports = function(app) {
   });
 };
 
-//
-// app.post("/api/search", function(req, res) {
-//   // something something recent searches of population
-// }).then(function(results) {
-//   res.render(results);
-// }).catch(function(err, res) {
-//   if (err) {
-//     res.status(400).end();
-//   }
-// });
