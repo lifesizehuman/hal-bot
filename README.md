@@ -4,8 +4,8 @@ Hal-Bot
 
 Hal-Bot is a "personal assistant" app that solves mathematical equations and allows users to search:
 
-- Tweets
-- Movie information, including titles, actors and genres
+- Wikipedia
+- Movie information (including titles, actors and genres)
 - Weather
 
 Motivation
@@ -17,7 +17,8 @@ API Reference
 We used the following APIs:
 
 - AccuWeather
-- Twitter
+- OMDB
+- Wikipedia
 
 
 Contributors:
