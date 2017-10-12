@@ -16,8 +16,13 @@ module.exports = function(app) {
       res.redirect(redPath);
     });
 
-  app.get("/api/weather/:search", function(req, res) {
-    const search = req.params.search;
+  app.get("/api/math/:q", function(req, res) {
+      // const search = req.params.q;
+      res.render("math");
+    });
+
+  app.get("/api/weather/:q", function(req, res) {
+    const search = req.params.q;
     const queryUrl = "http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=" + keys.info.accuKey + "&q=" + search;
 
     request(queryUrl, function(err, response, body) {
@@ -28,8 +33,8 @@ module.exports = function(app) {
   });
 
   //
-  app.get("/api/movie/:query", function(req, res) {
-    const query = req.params.query;
+  app.get("/api/movie/:q", function(req, res) {
+    const query = req.params.q;
 
     const queryUrl = "http://www.omdbapi.com/?t=" + query + "&y=&plot=short&apikey=40e9cece";
 
@@ -50,8 +55,8 @@ module.exports = function(app) {
   });
 
 
-  app.get("/api/wiki/:query", function(req, res) {
-    let query = req.params.query;
+  app.get("/api/wiki/:q", function(req, res) {
+    let query = req.params.q;
     console.log(query);
     query = query.replace(/ /g, "%20");
     const queryUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&utf8=&format=json&srsearch=${query}`;

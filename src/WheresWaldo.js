@@ -49,8 +49,6 @@ function WheresWaldo() {
          famous = true;
       }
 
-      console.log(out);
-
       if(out[0].data.industry === "FILM AND THEATRE") return {action:"movie", query:out[0].data.name};
 
       if(famous) return {action:"wiki", query:out[0].data.name};

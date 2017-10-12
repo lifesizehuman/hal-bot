@@ -1,0 +1,64 @@
+<script src="http://cdnjs.cloudflare.com/ajax/libs/mathjs/3.16.4/math.min.js"></script>
+
+<!-- load http://maurizzzio.github.io/function-plot/ -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+<script src="https://wzrd.in/standalone/function-plot@1.14.0"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-alpha/katex.min.css" integrity="sha384-FkMHIpkXHDi3o2XSOOa5/9TpXg4AX4DXPSC6z28hi2Eqn/27ea8MTV18rTq9OyQR" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-alpha/katex.min.js" integrity="sha384-wt0V9VomB0kx/jgLEkR18Slo+aNALuRwOOrWkicjQ0HHpFqu0JKzaFkbtmsku5a/" crossorigin="anonymous"></script>
+
+<div class="center" width="100%" id="ans"></div>
+<div class="center" width="100%" id="plot"></div>
+<style>
+.katex { font-size: 3vw; }
+</style>
+
+<script>
+(function() {
+    var throttle = function(type, name, obj) {
+        obj = obj || window;
+        var running = false;
+        var func = function() {
+            if (running) { return; }
+            running = true;
+             requestAnimationFrame(function() {
+                obj.dispatchEvent(new CustomEvent(name));
+                running = false;
+            });
+        };
+        obj.addEventListener(type, func);
+    };
+
+    /* init - you can init any event */
+    throttle("resize", "optimizedResize");
+})();
+
+  let plot = document.getElementById("plot");
+  let ans = document.getElementById("plot");
+  function draw() {
+    let size = plot.offsetWidth;
+
+    try {
+      functionPlot({
+         width: size * 0.98,
+         height: size * .555,
+        target: '#plot',
+        data: [{
+          fn: "2y^2 - y - y - y",
+          sampler: 'builtIn',  // this will make function-plot use the evaluator of math.js
+          graphType: 'polyline'
+        }]
+      });
+    }
+    catch (err) {
+      console.log(err);
+      alert(err);
+    }
+  }
+  katex.default.render("2x^2 - x = -3", ans, {
+   tip: {xLine:false}
+  });
+  draw();
+  window.addEventListener("optimizedResize", function() {
+      draw();
+  });
+</script>
