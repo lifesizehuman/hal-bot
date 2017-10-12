@@ -52,10 +52,15 @@ module.exports = function(app) {
 
   app.get("/api/wiki/:query", function(req, res) {
     let query = req.params.query;
+    console.log(query);
     query = query.replace(/ /g, "%20");
     const queryUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&utf8=&format=json&srsearch=${query}`;
     request(queryUrl, function(error, body) {
-      let pageid = JSON.parse(body.body).query.search[0].pageid - 0;
+      let parsed = JSON.parse(body.body);
+      let query  = parsed.query;
+      let search = query.search;
+      let entry  = search[0];
+      let pageid = (entry) ? entry.pageid - 0 : null;
       if(pageid) {
         res.render("wiki", {pageid:pageid});
       } else {

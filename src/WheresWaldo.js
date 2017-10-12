@@ -6,7 +6,7 @@ const celebs             = require("../node_modules/celebs/data/json/no-views/pa
 const DistanceSearch     = require("./distancesearch/distancesearch.js");
 const DistanceComparator = require("./distancesearch/distancecomparator.js");
 
-const FAME_THRESHOLD = 0.45;
+const FAME_THRESHOLD = 0.2;
 
 function isMath(str) {
    let ops = ["+", "*", "^", "-", "/", "="];
@@ -48,6 +48,8 @@ function WheresWaldo() {
       if(out[0].pri >  FAME_THRESHOLD) {
          famous = true;
       }
+
+      console.log(out);
 
       if(out[0].data.industry === "FILM AND THEATRE") return {action:"movie", query:out[0].data.name};
 
