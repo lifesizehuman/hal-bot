@@ -1,6 +1,5 @@
 "use strict"
 
-const SpellChecker = require("spellchecker");
 const is           = require("is");
 const sw           = require("stopword");
 const stem         = require("wink-porter2-stemmer" );
@@ -24,17 +23,6 @@ function words2numbers(str) {
 function lower(str) {
    if(!is.string(str)) throw new Error("Parameter to lower must be a string.");
    return str.toLowerCase();
-}
-// Perform spell check
-function fixSpelling(str) {
-   if(!is.string(str)) throw new Error("Parmater to fixSpelling must be a string.");
-   let split = str.split(" ");
-   for(let i = 0; i < split.length; i++) {
-      if(SpellChecker.isMisspelled(split[i])) {
-         split[i] = SpellChecker.getCorrectionsForMisspelling(split[i])[0] || split[i];
-      }
-   }
-   return split.join(" ");
 }
 
 function addWordToDict(str) {
@@ -94,15 +82,12 @@ function parse(str, skip) {
    if(is.object(skip)) {
       if(!(!!skip.trim))    str = trim(str);
       if(!(!!skip.lower))   str = lower(str);
-      if(!(!!skip.fixSp))   str = fixSpelling(str);
-      if(!(!!skip.w2n))     str = words2numbers(str);
       if(!(!!skip.extMath)) str = extractMath(str);
       if(!(!!skip.stops))   str = stops(str);
       if(!(!!skip.stems))   str = stems(str);
    } else {
       str = trim(str);
       str = lower(str);
-      str = fixSpelling(str);
       str = words2numbers(str);
       str = extractMath(str);
       str = stops(str);
