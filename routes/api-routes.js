@@ -74,14 +74,16 @@ module.exports = function(app) {
   });
 
   app.get("/", function(req, res) {
-    db.Todo.findAll().then(function(dbTodo) {
+    db.Todo.findAll({
+      include: [db.User]
+    }).then(function(dbTodo) {
       res.render("index", {todo: dbTodo});
     });
   });
 
-  app.post("/", function(req, res) {
+  app.post("/api/newTodo", function(req, res) {
     db.Todo.create({
-      task: req.body,// Someplace
+      task: req.body.task,// Someplace
     }).then(function(dbTodo) {
       res.redirect("/");
     });

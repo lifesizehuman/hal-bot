@@ -17,16 +17,7 @@
 <body id="bodyid">
 
   <div id="fb-root"></div>
-  <script>
-    (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s);
-      js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=129221391068505";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-  </script>
+  
 
   <nav>
     <div class="nav-wrapper">
@@ -66,12 +57,13 @@
       </div>
     </div>
   </div>
+  <script type="text/javascript" src="../../js/fb.js"></script>
+
   <script>
     $('.main-button').click(function() {
       $('.body').removeClass('scale-out').addClass('scale-in');
     })
   </script>
-
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script type="text/javascript">
