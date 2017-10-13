@@ -87,6 +87,12 @@
         }
       });
     });
+    $(document).keyup(function(event) {
+      event.preventDefault();
+      if (event.keyCode === 13) {
+        console.log("you hit enter");
+      }
+    });
   </script>
   <script type="text/javascript" src="../../js/materialize.min.js"></script>
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
