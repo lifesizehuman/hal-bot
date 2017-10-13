@@ -1,10 +1,10 @@
 "use strict"
 
-const nlp                = require("./naivenlp/naivenlp.js");
+const nlp                = require("./naivenlp.js");
 const celebs             = require("../node_modules/celebs/data/json/no-views/pantheon.json");
 
-const DistanceSearch     = require("./distancesearch/distancesearch.js");
-const DistanceComparator = require("./distancesearch/distancecomparator.js");
+const DistanceSearch     = require("./distancesearch.js");
+const DistanceComparator = require("./distancecomparator.js");
 
 const FAME_THRESHOLD = 0.2;
 
