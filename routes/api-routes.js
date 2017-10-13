@@ -18,7 +18,7 @@ module.exports = function(app) {
     });
 
     // Ajax request
-    if (req.headers["x-requested-with"] === "XMLHttpRequest") {
+    if (req.headers["xrequestedwith"] === "XMLHttpRequest") {
       res.json({address: redPath});
     } else { // Browser request
       res.redirect(redPath);
@@ -81,7 +81,7 @@ module.exports = function(app) {
       let search = query.search;
       let entry = search[0];
       let pageid = (entry)
-        ? entry.pageid - 0
+        ? entry.pageid  0
         : null;
       if (pageid) {
         res.render("wiki", {pageid: pageid});
@@ -91,7 +91,7 @@ module.exports = function(app) {
     });
   });
 
-  app.get("/", function(req, res) {
+  app.get("/api/todo", function(req, res) {
     db.Todo.findAll({
       include: [db.User]
     }).then(function(dbTodo) {
@@ -99,7 +99,7 @@ module.exports = function(app) {
     });
   });
 
-  app.post("/api/newTodo", function(req, res) {
+  app.post("/api/todo", function(req, res) {
     db.Todo.create({
       task: req.body.task,// Someplace
     }).then(function(dbTodo) {
@@ -107,7 +107,7 @@ module.exports = function(app) {
     });
   });
 
-  app.put("/", function(req, res) {
+  app.put("/api/todo", function(req, res) {
     db.Todo.update({
       task: req.body.task, // Someplace
       complete: req.body.complete // Someplace
@@ -115,12 +115,10 @@ module.exports = function(app) {
       where: {
         id: req.body.id // Someplace
       }
-    }).then(function(dbTodo) {
-      res.redirect("/");
-    });
+    })
   });
 
-  app.delete("/", function(req, res) {
+  app.delete("/api/todo", function(req, res) {
     db.Todo.destroy({
       where: {
         id: req.body.id // Someplace
@@ -129,4 +127,15 @@ module.exports = function(app) {
       res.redirect("/");
     });
   });
+
+  app.get("/api/twitter/:term", function(req, res) {
+     var term = req.params.term;
+     var queryUrl = "https://publish.twitter.com/oembed?url=https://twitter.com/" + term;
+
+     request(queryUrl, function(response, body) {
+       console.log(body.body);
+       console.log(JSON.parse(body.body));
+       res.render("tweets", {twit: JSON.parse(body.body).html});
+     });
+   });
 };
