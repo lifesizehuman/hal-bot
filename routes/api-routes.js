@@ -13,6 +13,9 @@ module.exports = function(app) {
   app.get("/api/query/:q", function(req, res) {
     let queryAction = ww.action(req.params.q);
     let redPath = `/api/${queryAction.action}/${queryAction.query}`;
+    db.Search.create({
+      search_phrase: req.params.q
+    });
 
     // Ajax request
     if (req.headers["x-requested-with"] === "XMLHttpRequest") {
@@ -20,6 +23,12 @@ module.exports = function(app) {
     } else { // Browser request
       res.redirect(redPath);
     }
+  });
+
+  app.get("/api/recent/", function(req, res) {
+    db.Search.findAll().then(function(dbSearch) {
+      res.json(dbSearch);
+    });
   });
 
   app.get("/api/math/:q", function(req, res) {
