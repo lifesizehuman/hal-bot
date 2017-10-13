@@ -1,11 +1,12 @@
 "use strict"
 
-// const SpellChecker = require("spellchecker");
+const SpellChecker = require("spellchecker");
 const is           = require("is");
 const sw           = require("stopword");
 const stem         = require("wink-porter2-stemmer" );
 const w2n          = require("words-to-numbers");
 const Regex        = require("regex");
+const RegReplacer  = require("regreplacer");
 
 // Trim any multiple occuring white spaces
 function trim(str) {
@@ -56,6 +57,7 @@ function stems(str) {
 // Extract math
 function extractMath(str) {
    if(!is.string(str)) throw new Error("First parmater to extractMath must be a string.");
+   str = stops(str);
    str = words2numbers(str);
    const toFilter = ["!", "=<", "=>", "\\[", "\]", "%", "\|", "&", "~", "\,", "{", "}", "\\?", "@", "#", "’", "'", "\\."];
    const toKeep   = ["+", "*", "^", "-", "/", "="];
@@ -64,7 +66,6 @@ function extractMath(str) {
       str = str.replace(tmpReg, "");
    });
    str = str.replace(/\w{3,}/g,"");
-
    let split = str.split(" ");
 
    let ret = [];
@@ -83,10 +84,8 @@ function extractMath(str) {
       ret.push(nums.join(""));
    }
 
-   // console.log(str.split("+"));
-   // console.log(str.split("+").join(" "));
    str = trim(ret.join(" "));
-   str = stops(str);
+
    return str;
 }
 

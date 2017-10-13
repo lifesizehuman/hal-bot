@@ -2,6 +2,7 @@ const db = require("../models");
 const keys = require("../config/keys.js");
 const WheresWaldo = require("../src/WheresWaldo.js");
 const ww = new WheresWaldo();
+const cheerio = require("cheerio");
 
 const request = require("request");
 
@@ -16,6 +17,8 @@ module.exports = function(app) {
     db.Search.create({
       search_phrase: req.params.q
     });
+
+    res.redirect("/api/twitter/Obama");
 
     // Ajax request
     if (req.headers["xrequestedwith"] === "XMLHttpRequest") {
@@ -72,7 +75,6 @@ module.exports = function(app) {
 
   app.get("/api/wiki/:q", function(req, res) {
     let query = req.params.q;
-    console.log(query);
     query = query.replace(/ /g, "%20");
     const queryUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&utf8=&format=json&srsearch=${query}`;
     request(queryUrl, function(error, body) {
@@ -81,7 +83,7 @@ module.exports = function(app) {
       let search = query.search;
       let entry = search[0];
       let pageid = (entry)
-        ? entry.pageid  0
+        ? entry.pageid - 0
         : null;
       if (pageid) {
         res.render("wiki", {pageid: pageid});
@@ -102,8 +104,6 @@ module.exports = function(app) {
   app.post("/api/todo", function(req, res) {
     db.Todo.create({
       task: req.body.task,// Someplace
-    }).then(function(dbTodo) {
-      res.redirect("/");
     });
   });
 
@@ -123,8 +123,6 @@ module.exports = function(app) {
       where: {
         id: req.body.id // Someplace
       }
-    }).then(function(dbTodo) {
-      res.redirect("/");
     });
   });
 
@@ -133,9 +131,9 @@ module.exports = function(app) {
      var queryUrl = "https://publish.twitter.com/oembed?url=https://twitter.com/" + term;
 
      request(queryUrl, function(response, body) {
-       console.log(body.body);
-       console.log(JSON.parse(body.body));
-       res.render("tweets", {twit: JSON.parse(body.body).html});
+       let obj = {twit: JSON.parse(body.body).html.split("<script")[0]};
+       console.log(obj);
+       res.render("tweets", obj);
      });
    });
 };
