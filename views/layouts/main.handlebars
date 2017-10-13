@@ -67,45 +67,34 @@
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script type="text/javascript">
-    console.log("scripts");
-    $("#search-button").on("click", function(event) {
-      // console.log("THIS WORKS");
-      var query = $("#search").val().trim();
-      // console.log(query);
-      // var params = $.param(query);
-      // document.write(params);
-      // $.ajax({
-      //   type: "GET",
-      //   url: "/api/query/" + query,
-      //   dataType: "html",
-      //   success: function(data, textStatus) {
-      //     if(data.redirect) {
-      //       console.log("REDIRECT");
-      //     }
-      //   }
-      // });
-
-      function buildUrl(url, parameters) {
-        var qs = "";
-        for (var key in parameters) {
-          var value = parameters[key];
-          qs += "=" + encodeURIComponent(value) + "&";
-        }
-        if (qs.length > 0) {
-          qs = qs.substring(0, qs.length - 1);
-          url = url + "?" + qs;
-        }
-        return url;
+  function search() {
+    var query = $("#search").val().trim();
+    $.ajax({
+      type: "GET",
+      url: "/api/query/" + query,
+      success: function(response) {
+        let sen = "http://" + window.location.hostname + ":8080" + `${response.address}`;
+        window.location = sen;
       }
+    });
+  }
+    $("#search-button").on("click", function(event) {
+      search();
+    });
 
-      // example:
-      var url = "/api/query/";
+    $("#search").keypress(function(event) {
+      if(event.keyCode === 13) {
+        event.preventDefault();
+      }
+    })
 
-      var parameters = {
-        query: query
-      };
-
-      document.write(buildUrl(url, parameters));
+    $(document).ready(function() {
+      $(window).keyup(function(event) {
+        if (event.keyCode === 13) {
+          event.preventDefault();
+          search();
+        }
+      });
     });
   </script>
   <script type="text/javascript" src="../../js/materialize.min.js"></script>

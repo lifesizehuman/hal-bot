@@ -11,22 +11,29 @@ module.exports = function(app) {
   });
 
   app.get("/api/query/:q", function(req, res) {
-      let queryAction = ww.action(req.params.q);
-      let redPath = `/api/${queryAction.action}/${queryAction.query}`;
+    let queryAction = ww.action(req.params.q);
+    let redPath = `/api/${queryAction.action}/${queryAction.query}`;
+
+    // Ajax request
+    if (req.headers["x-requested-with"] === "XMLHttpRequest") {
+      res.json({address: redPath});
+    } else { // Browser request
       res.redirect(redPath);
-    });
+    }
+  });
 
   app.get("/api/math/:q", function(req, res) {
-      // const search = req.params.q;
-      res.render("math");
-    });
+    // const search = req.params.q;
+    res.render("math");
+  });
 
   app.get("/api/weather/:q", function(req, res) {
     const search = req.params.q;
     const queryUrl = "http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=" + keys.info.accuKey + "&q=" + search;
 
     request(queryUrl, function(err, response, body) {
-      if (err) throw err;
+      if (err)
+        throw err;
       const info = JSON.parse(body);
       res.render("weather", info[0]);
     });
@@ -61,12 +68,14 @@ module.exports = function(app) {
     const queryUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&utf8=&format=json&srsearch=${query}`;
     request(queryUrl, function(error, body) {
       let parsed = JSON.parse(body.body);
-      let query  = parsed.query;
+      let query = parsed.query;
       let search = query.search;
-      let entry  = search[0];
-      let pageid = (entry) ? entry.pageid - 0 : null;
-      if(pageid) {
-        res.render("wiki", {pageid:pageid});
+      let entry = search[0];
+      let pageid = (entry)
+        ? entry.pageid - 0
+        : null;
+      if (pageid) {
+        res.render("wiki", {pageid: pageid});
       } else {
         res.render("404");
       }
@@ -91,11 +100,11 @@ module.exports = function(app) {
 
   app.put("/", function(req, res) {
     db.Todo.update({
-      task: req.body.task,// Someplace
-      complete: req.body.complete// Someplace
+      task: req.body.task, // Someplace
+      complete: req.body.complete // Someplace
     }, {
       where: {
-        id: req.body.id// Someplace
+        id: req.body.id // Someplace
       }
     }).then(function(dbTodo) {
       res.redirect("/");
@@ -105,7 +114,7 @@ module.exports = function(app) {
   app.delete("/", function(req, res) {
     db.Todo.destroy({
       where: {
-        id: req.body.id// Someplace
+        id: req.body.id // Someplace
       }
     }).then(function(dbTodo) {
       res.redirect("/");
