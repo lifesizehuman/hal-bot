@@ -1,6 +1,6 @@
 "use strict"
 
-const SpellChecker = require("spellchecker");
+// const SpellChecker = require("spellchecker");
 const is           = require("is");
 const sw           = require("stopword");
 const stem         = require("wink-porter2-stemmer" );
