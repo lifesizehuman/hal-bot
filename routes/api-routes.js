@@ -32,7 +32,6 @@ module.exports = function(app) {
     });
   });
 
-  //
   app.get("/api/movie/:q", function(req, res) {
     const query = req.params.q;
 
@@ -54,7 +53,6 @@ module.exports = function(app) {
     });
   });
 
-
   app.get("/api/wiki/:q", function(req, res) {
     let query = req.params.q;
     console.log(query);
@@ -71,6 +69,43 @@ module.exports = function(app) {
       } else {
         res.render("404");
       }
+    });
+  });
+
+  app.get("/", function(req, res) {
+    db.Todo.findAll().then(function(dbTodo) {
+      res.render("index", {todo: dbTodo});
+    });
+  });
+
+  app.post("/", function(req, res) {
+    db.Todo.create({
+      task: req.body,// Someplace
+    }).then(function(dbTodo) {
+      res.redirect("/");
+    });
+  });
+
+  app.put("/", function(req, res) {
+    db.Todo.update({
+      task: req.body.task,// Someplace
+      complete: req.body.complete// Someplace
+    }, {
+      where: {
+        id: req.body.id// Someplace
+      }
+    }).then(function(dbTodo) {
+      res.redirect("/");
+    });
+  });
+
+  app.delete("/", function(req, res) {
+    db.Todo.destroy({
+      where: {
+        id: req.body.id// Someplace
+      }
+    }).then(function(dbTodo) {
+      res.redirect("/");
     });
   });
 };
