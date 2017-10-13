@@ -47,7 +47,8 @@ module.exports = function(app) {
         country: content.Country,
         language: content.Language,
         actors: content.Actors,
-        plot: content.Plot
+        plot: content.Plot,
+        poster: content.Poster
       };
       res.render("movies", values);
     });
@@ -109,4 +110,3 @@ module.exports = function(app) {
     });
   });
 };
-
