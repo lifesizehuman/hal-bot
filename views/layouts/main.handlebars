@@ -18,26 +18,26 @@
 
   <div id="fb-root"></div>
   <script>
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s);
-    js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=129221391068505";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=129221391068505";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
   </script>
 
-    <nav>
-        <div class="nav-wrapper">
-            <a href="#" class="brand-logo"><img src="../../assets/logo.png" width="250px" /></a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li>
-                    <div class="fb-login-button" data-width="300" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true"></div>
-                </li>
-            </ul>
-        </div>
-    </nav>
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo"><img src="../../assets/logo.png" width="250px" /></a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li>
+          <div class="fb-login-button" data-width="300" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true"></div>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
   <div class="container">
     <div id="index-banner" class="search-container">
@@ -61,32 +61,64 @@
           <div class="results-header"></div>
         </div>
         <div class="col s12 body">
-        {{{ body }}}
+          {{{ body }}}
         </div>
       </div>
     </div>
   </div>
   <script>
-  $('.main-button').click(function() {
-    $('.body').removeClass('scale-out').addClass('scale-in');
-  })
+    $('.main-button').click(function() {
+      $('.body').removeClass('scale-out').addClass('scale-in');
+    })
   </script>
 
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script type="text/javascript">
-  console.log("scripts");
+    console.log("scripts");
     $("#search-button").on("click", function(event) {
-      console.log("THIS WORKS");
+      // console.log("THIS WORKS");
       var query = $("#search").val().trim();
-      console.log(query);
-      $.get("/api/query/" + query, function(data) {
-        console.log(data);
-      });
+      // console.log(query);
+      // var params = $.param(query);
+      // document.write(params);
+      // $.ajax({
+      //   type: "GET",
+      //   url: "/api/query/" + query,
+      //   dataType: "html",
+      //   success: function(data, textStatus) {
+      //     if(data.redirect) {
+      //       console.log("REDIRECT");
+      //     }
+      //   }
+      // });
+
+      function buildUrl(url, parameters) {
+        var qs = "";
+        for (var key in parameters) {
+          var value = parameters[key];
+          qs += "=" + encodeURIComponent(value) + "&";
+        }
+        if (qs.length > 0) {
+          qs = qs.substring(0, qs.length - 1);
+          url = url + "?" + qs;
+        }
+        return url;
+      }
+
+      // example:
+      var url = "/api/query/";
+
+      var parameters = {
+        query: query
+      };
+
+      document.write(buildUrl(url, parameters));
     });
   </script>
   <script type="text/javascript" src="../../js/materialize.min.js"></script>
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </body>
+
 </html>
