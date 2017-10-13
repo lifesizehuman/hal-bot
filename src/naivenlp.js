@@ -99,7 +99,6 @@ function parse(str, skip) {
 module.exports = {
    trim:        trim,
    lower:       lower,
-   fixSpelling: fixSpelling,
    stops:       stops,
    stems:       stems,
    extractMath: extractMath,

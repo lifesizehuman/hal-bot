@@ -3,8 +3,8 @@ const keys = require("../config/keys.js");
 const WheresWaldo = require("../src/WheresWaldo.js");
 const ww = new WheresWaldo();
 const cheerio = require("cheerio");
-
 const request = require("request");
+const math  = require("mathjs");
 
 module.exports = function(app) {
   app.get("/", function(req, res) {
@@ -17,11 +17,8 @@ module.exports = function(app) {
     db.Search.create({
       search_phrase: req.params.q
     });
-
-    res.redirect("/api/twitter/Obama");
-
     // Ajax request
-    if (req.headers["xrequestedwith"] === "XMLHttpRequest") {
+    if (req.headers["x-requested-with"] === "XMLHttpRequest") {
       res.json({address: redPath});
     } else { // Browser request
       res.redirect(redPath);
@@ -35,8 +32,13 @@ module.exports = function(app) {
   });
 
   app.get("/api/math/:q", function(req, res) {
-    // const search = req.params.q;
-    res.render("math");
+    const eq = req.params.q;
+    try {
+      let ans = math.eval(eq);
+      res.render("math", {eq:ans});
+    } catch(e) {
+      res.render("math", {eq:eq})
+    }
   });
 
   app.get("/api/weather/:q", function(req, res) {
@@ -88,7 +90,7 @@ module.exports = function(app) {
       if (pageid) {
         res.render("wiki", {pageid: pageid});
       } else {
-        res.render("404");
+        res.redirect("/");
       }
     });
   });
@@ -97,7 +99,7 @@ module.exports = function(app) {
     db.Todo.findAll({
       include: [db.User]
     }).then(function(dbTodo) {
-      res.render("index", {todo: dbTodo});
+      res.json(dbTodo);
     });
   });
 
@@ -131,9 +133,12 @@ module.exports = function(app) {
      var queryUrl = "https://publish.twitter.com/oembed?url=https://twitter.com/" + term;
 
      request(queryUrl, function(response, body) {
-       let obj = {twit: JSON.parse(body.body).html.split("<script")[0]};
-       console.log(obj);
-       res.render("tweets", obj);
+      try {
+        let obj = {twit: JSON.parse(body.body).html};
+        res.render("tweets", obj);
+      } catch(e) {
+        res.redirect("/");
+      }
      });
    });
 };

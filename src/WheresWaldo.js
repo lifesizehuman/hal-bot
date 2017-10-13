@@ -21,6 +21,16 @@ function WheresWaldo() {
       let mathParse = nlp.parse(str, {stems:true});
       if(isMath(mathParse)) return {action:"math",query:mathParse};
 
+      let twitParse = nlp.parse(str, {extMath: true});
+      let isTwit = (twitParse.split(" ").indexOf("twitter") !== -1)
+                || (twitParse.split(" ").indexOf("tweet") !== -1);
+      if(isTwit) {
+         let outStr = twitParse.replace("twitter","");
+         outStr = outStr.replace("tweet","");
+         outStr = outStr.replace(/ /g,"");
+         return {action: "twitter", query: outStr};
+      }
+
       // Parse for weather
       let weatherWordParse = nlp.parse(str, {stems:true, extMath: true});
       let weatherSplit = weatherWordParse.split(" ");
