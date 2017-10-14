@@ -98,9 +98,10 @@ module.exports = function(app) {
     });
   });
 
-  app.post("/api/newUser", function(req, res) {
+  app.post("/api/newUser/:id", function(req, res) {
+    var id = req.params.id;
     db.User.create({
-      user_ID: req.body.id,// Someplace
+      user_ID: id
     });
   });
 
