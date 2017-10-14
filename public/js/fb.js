@@ -26,5 +26,3 @@ function logInfo() {
     console.log(userID);
   });
 }
-
-logInfo();
