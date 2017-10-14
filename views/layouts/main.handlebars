@@ -19,16 +19,16 @@
   <div id="fb-root"></div>
 
   <nav class="navbar navbar-light bg-light">
-  <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="#">
     <img src="../../assets/logo.png" width="250px" alt="logo-image" />
   </a>
 
-  <ul id="navbar-item">
-    <li>
-     <div class="fb-login-button" data-width="200" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true"></div>
-    </li>
-  </ul>
-</nav>
+    <ul id="navbar-item">
+      <li>
+        <div class="fb-login-button" data-width="200" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true"></div>
+      </li>
+    </ul>
+  </nav>
 
   <div class="container-fluid">
     <div id="index-banner" class="search-container">
@@ -52,34 +52,43 @@
           <div class="results-header"></div>
         </div> -->
 
-        <div id="left-sidebar" class="col s2 body">
 
+          <div class="col s3 body">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Recent Searches</h3>
+              </div>
+              <div class="panel-body">
+                <div id="left-sidebar">
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="col s8 body">
+        <div class="col s9 body">
           {{{ body }}}
         </div>
 
-        <div id="right-sidebar" class="col s2 body">
+        <!-- <div id="right-sidebar" class="col s2 body">
 
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
   <script>
     window.fbAsyncInit = function() {
       FB.init({
-        appId            : '129221391068505',
-        autoLogAppEvents : true,
-        xfbml            : true,
-        version          : 'v2.10'
+        appId: '129221391068505',
+        autoLogAppEvents: true,
+        xfbml: true,
+        version: 'v2.10'
       });
       FB.AppEvents.logPageView();
     };
 
     (function(d, s, id) {
-       var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {
         return;
       }
       js = d.createElement(s);
@@ -99,23 +108,23 @@
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script type="text/javascript">
-  function search() {
-    var query = $("#search").val().trim();
-    $.ajax({
-      type: "GET",
-      url: "/api/query/" + query,
-      success: function(response) {
-        let sen = "http://" + window.location.hostname + `${response.address}`;
-        window.location = sen;
-      }
-    });
-  }
+    function search() {
+      var query = $("#search").val().trim();
+      $.ajax({
+        type: "GET",
+        url: "/api/query/" + query,
+        success: function(response) {
+          let sen = "http://" + window.location.hostname + `${response.address}`;
+          window.location = sen;
+        }
+      });
+    }
     $("#search-button").on("click", function(event) {
       search();
     });
 
     $("#search").keypress(function(event) {
-      if(event.keyCode === 13) {
+      if (event.keyCode === 13) {
         event.preventDefault();
       }
     })
@@ -129,11 +138,15 @@
       });
 
       $.ajax({
-        type:    "GET",
-        url:     "/api/recent/",
+        type: "GET",
+        url: "/api/recent/",
         success: function(response) {
           let tag = $("#left-sidebar");
-          for(const entry of response) {
+          let i = 0;
+          for (const entry of response) {
+            if (i++ === 10) {
+              break;
+            }
             let tmpP = $("<p>");
             tmpP.text(entry.search_phrase);
             tag.append(tmpP);
