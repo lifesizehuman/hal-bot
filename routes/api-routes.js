@@ -111,7 +111,7 @@ module.exports = function(app) {
 
   app.get("/api/todo", function(req, res) {
     db.Todo.findAll({
-      include: [db.User]
+      include: [{ model: db.User }]
     }).then(function(dbTodo) {
       res.json(dbTodo);
     });
