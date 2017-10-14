@@ -74,8 +74,8 @@ class DistanceComparator {
             this.Privates.split = split;
          } else if(is.object(split)) {
             // If object, check for mutually exclusive dice or leven properies
-            const vals = (val) => Object.keys(countries).map(function(key) {
-                return countries[key];
+            const vals = (val) => Object.keys(val).map(function(key) {
+                return val[key];
             });
             if(split.human === true) {
                split = (val) => vals(nameParse.parseName(val));
