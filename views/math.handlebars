@@ -7,15 +7,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-alpha/katex.min.js" integrity="sha384-wt0V9VomB0kx/jgLEkR18Slo+aNALuRwOOrWkicjQ0HHpFqu0JKzaFkbtmsku5a/" crossorigin="anonymous"></script>
 
 <div data-eq="{{this.eq}}" class="center" width="100%" id="ans1"></div>
-<div data-eq="{{this.eq}}" class="center" width="100%" id="ans2"></div>
-<div data-eq="{{this.eq}}" class="center" width="100%" id="ans3"></div>
-<div data-eq="{{this.eq}}" class="center" width="100%" id="ans4"></div>
-<div data-eq="{{this.eq}}" class="center" width="100%" id="ans5"></div>
-<div data-eq="{{this.eq}}" class="center" width="100%" id="ans6"></div>
-<div data-eq="{{this.eq}}" class="center" width="100%" id="ans7"></div>
-<div data-eq="{{this.eq}}" class="center" width="100%" id="ans8"></div>
-<div data-eq="{{this.eq}}" class="center" width="100%" id="ans9"></div>
-<div data-eq="{{this.eq}}" class="center" width="100%" id="ans10"></div>
 <div data-eq="{{this.eq}}" class="center" width="100%" id="plot"></div>
 <style>
 .katex { font-size: 3vw; }
@@ -63,7 +54,6 @@
       console.log(err);
     }
   }
-  console.log(eq);
   katex.default.render(eq + "", ans1, {
    tip: {xLine:false}
   });
