@@ -157,7 +157,7 @@
       $.ajax({
         type: "POST",
         url: "/api/addTodo",
-        data: task
+        data: {task: task}
       });
     });
   </script>
