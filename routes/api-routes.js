@@ -98,6 +98,12 @@ module.exports = function(app) {
     });
   });
 
+  app.post("/api/newUser", function(req, res) {
+    db.User.create({
+      user_ID: req.body.id,// Someplace
+    });
+  });
+
   app.get("/api/todo", function(req, res) {
     db.Todo.findAll({
       include: [db.User]
