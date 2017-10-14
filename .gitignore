@@ -2,3 +2,4 @@ node_modules/
 devcon.json
 keysbackup.js
 .DS_Store
+config-development.json
