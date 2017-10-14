@@ -16,3 +16,19 @@
 #right-sidebar, #left-sidebar {
   background-color: salmon;
 }*/
+
+.jumbotron {
+  height: 350px;
+}
+
+.search-container {
+  padding-top: 30px;
+}
+
+.logo {
+  margin-bottom: 50px;
+}
+
+#search {
+  margin-bottom: 15px;
+}
