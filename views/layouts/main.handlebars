@@ -104,6 +104,19 @@
           search();
         }
       });
+
+      $.ajax({
+        type:    "GET",
+        url:     "/api/recent/",
+        success: function(response) {
+          let tag = $("#left-sidebar");
+          for(const entry of response) {
+            let tmpP = $("<p>");
+            tmpP.text(entry.search_phrase);
+            tag.append(tmpP);
+          }
+        }
+      })
     });
   </script>
   <script type="text/javascript" src="../../js/materialize.min.js"></script>

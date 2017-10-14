@@ -74,8 +74,11 @@ class DistanceComparator {
             this.Privates.split = split;
          } else if(is.object(split)) {
             // If object, check for mutually exclusive dice or leven properies
+            const vals = (val) => Object.keys(countries).map(function(key) {
+                return countries[key];
+            });
             if(split.human === true) {
-               split = (val) => Object.values(nameParse.parseName(val));
+               split = (val) => vals(nameParse.parseName(val));
                this.Privates.split = split;
             } else {
                throw new Error("Object passed in to first parameter of DistanceComparator"
