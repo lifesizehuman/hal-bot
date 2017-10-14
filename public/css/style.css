@@ -8,3 +8,7 @@
    border-top-left-radius: 25px;
    border-top-right-radius: 25px;
 }
+
+.nav-wrapper {
+  background-color: salmon;
+}
