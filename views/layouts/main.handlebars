@@ -73,7 +73,7 @@
       type: "GET",
       url: "/api/query/" + query,
       success: function(response) {
-        let sen = "http://" + window.location.hostname + ":8080" + `${response.address}`;
+        let sen = "http://" + window.location.hostname + `${response.address}`;
         window.location = sen;
       }
     });
