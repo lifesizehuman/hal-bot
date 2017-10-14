@@ -47,13 +47,14 @@ function extractMath(str) {
    if(!is.string(str)) throw new Error("First parmater to extractMath must be a string.");
    str = stops(str);
    str = words2numbers(str);
+   console.log(str);
    const toFilter = ["!", "=<", "=>", "\\[", "\]", "%", "\|", "&", "~", "\,", "{", "}", "\\?", "@", "#", "’", "'", "\\."];
    const toKeep   = ["+", "*", "^", "-", "/", "="];
    toFilter.map((e) => {
       let tmpReg = new RegExp(e, "g");
       str = str.replace(tmpReg, "");
    });
-   str = str.replace(/\w{3,}/g,"");
+   str = str.replace(/\[a-zA-z]{3,}/g,"");
    let split = str.split(" ");
 
    let ret = [];
