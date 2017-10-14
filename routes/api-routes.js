@@ -115,7 +115,7 @@ module.exports = function(app) {
     });
   });
 
-  app.post("/api/todo", function(req, res) {
+  app.post("/api/addTodo", function(req, res) {
     db.Todo.create({
       task: req.body.task,// Someplace
     });
