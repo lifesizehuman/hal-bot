@@ -5,8 +5,15 @@ var path      = require('path');
 var Sequelize = require('sequelize');
 var basename  = path.basename(__filename);
 var env       = process.env.NODE_ENV || 'development';
-var config    = require(__dirname + '/../config/config.json')[env];
+var config;
 var db        = {};
+var devMode   = true;
+
+if (devMode) {
+  config    = require(__dirname + '/../config/devcon.json')[env];
+} else {
+  config    = require(__dirname + '/../config/config.json')[env];
+}
 
 if (config.use_env_variable) {
   var sequelize = new Sequelize(process.env[config.use_env_variable]);
