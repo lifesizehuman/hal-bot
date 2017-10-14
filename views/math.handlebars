@@ -6,8 +6,17 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-alpha/katex.min.css" integrity="sha384-FkMHIpkXHDi3o2XSOOa5/9TpXg4AX4DXPSC6z28hi2Eqn/27ea8MTV18rTq9OyQR" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-alpha/katex.min.js" integrity="sha384-wt0V9VomB0kx/jgLEkR18Slo+aNALuRwOOrWkicjQ0HHpFqu0JKzaFkbtmsku5a/" crossorigin="anonymous"></script>
 
-<div class="center" width="100%" id="ans"></div>
-<div class="center" width="100%" id="plot"></div>
+<div data-eq="{{this.eq}}" class="center" width="100%" id="ans1"></div>
+<div data-eq="{{this.eq}}" class="center" width="100%" id="ans2"></div>
+<div data-eq="{{this.eq}}" class="center" width="100%" id="ans3"></div>
+<div data-eq="{{this.eq}}" class="center" width="100%" id="ans4"></div>
+<div data-eq="{{this.eq}}" class="center" width="100%" id="ans5"></div>
+<div data-eq="{{this.eq}}" class="center" width="100%" id="ans6"></div>
+<div data-eq="{{this.eq}}" class="center" width="100%" id="ans7"></div>
+<div data-eq="{{this.eq}}" class="center" width="100%" id="ans8"></div>
+<div data-eq="{{this.eq}}" class="center" width="100%" id="ans9"></div>
+<div data-eq="{{this.eq}}" class="center" width="100%" id="ans10"></div>
+<div data-eq="{{this.eq}}" class="center" width="100%" id="plot"></div>
 <style>
 .katex { font-size: 3vw; }
 </style>
@@ -32,18 +41,19 @@
     throttle("resize", "optimizedResize");
 })();
 
-  let plot = document.getElementById("plot");
-  let ans = document.getElementById("plot");
+  let ans1 = document.getElementById("ans1");
+  let ans2 = document.getElementById("ans2");
+  let header_cont = document.getElementById("header-cont");
+  let eq = plot.getAttribute("data-eq");
   function draw() {
-    let size = plot.offsetWidth;
-
+    let size = header_cont.offsetWidth;
     try {
       functionPlot({
          width: size * 0.98,
          height: size * .555,
         target: '#plot',
         data: [{
-          fn: "2y^2 - y - y - y",
+          fn: eq,
           sampler: 'builtIn',  // this will make function-plot use the evaluator of math.js
           graphType: 'polyline'
         }]
@@ -51,10 +61,9 @@
     }
     catch (err) {
       console.log(err);
-      alert(err);
     }
   }
-  katex.default.render("2x^2 - x = -3", ans, {
+  katex.default.render(eq + "", ans1, {
    tip: {xLine:false}
   });
   draw();

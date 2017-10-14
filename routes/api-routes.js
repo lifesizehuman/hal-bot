@@ -2,8 +2,9 @@ const db = require("../models");
 const keys = require("../config/keys.js");
 const WheresWaldo = require("../src/WheresWaldo.js");
 const ww = new WheresWaldo();
-
+const cheerio = require("cheerio");
 const request = require("request");
+const math  = require("mathjs");
 
 module.exports = function(app) {
   app.get("/", function(req, res) {
@@ -16,7 +17,6 @@ module.exports = function(app) {
     db.Search.create({
       search_phrase: req.params.q
     });
-
     // Ajax request
     if (req.headers["x-requested-with"] === "XMLHttpRequest") {
       res.json({address: redPath});
@@ -32,8 +32,13 @@ module.exports = function(app) {
   });
 
   app.get("/api/math/:q", function(req, res) {
-    // const search = req.params.q;
-    res.render("math");
+    const eq = req.params.q;
+    try {
+      let ans = math.eval(eq);
+      res.render("math", {eq:ans});
+    } catch(e) {
+      res.render("math", {eq:eq})
+    }
   });
 
   app.get("/api/weather/:q", function(req, res) {
@@ -72,7 +77,6 @@ module.exports = function(app) {
 
   app.get("/api/wiki/:q", function(req, res) {
     let query = req.params.q;
-    console.log(query);
     query = query.replace(/ /g, "%20");
     const queryUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&utf8=&format=json&srsearch=${query}`;
     request(queryUrl, function(error, body) {
@@ -86,28 +90,26 @@ module.exports = function(app) {
       if (pageid) {
         res.render("wiki", {pageid: pageid});
       } else {
-        res.render("404");
+        res.redirect("/");
       }
     });
   });
 
-  app.get("/", function(req, res) {
+  app.get("/api/todo", function(req, res) {
     db.Todo.findAll({
       include: [db.User]
     }).then(function(dbTodo) {
-      res.render("index", {todo: dbTodo});
+      res.json(dbTodo);
     });
   });
 
-  app.post("/api/newTodo", function(req, res) {
+  app.post("/api/todo", function(req, res) {
     db.Todo.create({
       task: req.body.task,// Someplace
-    }).then(function(dbTodo) {
-      res.redirect("/");
     });
   });
 
-  app.put("/", function(req, res) {
+  app.put("/api/todo", function(req, res) {
     db.Todo.update({
       task: req.body.task, // Someplace
       complete: req.body.complete // Someplace
@@ -115,18 +117,28 @@ module.exports = function(app) {
       where: {
         id: req.body.id // Someplace
       }
-    }).then(function(dbTodo) {
-      res.redirect("/");
-    });
+    })
   });
 
-  app.delete("/", function(req, res) {
+  app.delete("/api/todo", function(req, res) {
     db.Todo.destroy({
       where: {
         id: req.body.id // Someplace
       }
-    }).then(function(dbTodo) {
-      res.redirect("/");
     });
   });
+
+  app.get("/api/twitter/:term", function(req, res) {
+     var term = req.params.term;
+     var queryUrl = "https://publish.twitter.com/oembed?url=https://twitter.com/" + term;
+
+     request(queryUrl, function(response, body) {
+      try {
+        let obj = {twit: JSON.parse(body.body).html};
+        res.render("tweets", obj);
+      } catch(e) {
+        res.redirect("/");
+      }
+     });
+   });
 };

@@ -1,11 +1,11 @@
 "use strict"
 
-// const SpellChecker = require("spellchecker");
 const is           = require("is");
 const sw           = require("stopword");
 const stem         = require("wink-porter2-stemmer" );
 const w2n          = require("words-to-numbers");
 const Regex        = require("regex");
+const RegReplacer  = require("regreplacer");
 
 // Trim any multiple occuring white spaces
 function trim(str) {
@@ -23,17 +23,6 @@ function words2numbers(str) {
 function lower(str) {
    if(!is.string(str)) throw new Error("Parameter to lower must be a string.");
    return str.toLowerCase();
-}
-// Perform spell check
-function fixSpelling(str) {
-   if(!is.string(str)) throw new Error("Parmater to fixSpelling must be a string.");
-   let split = str.split(" ");
-   for(let i = 0; i < split.length; i++) {
-      if(SpellChecker.isMisspelled(split[i])) {
-         split[i] = SpellChecker.getCorrectionsForMisspelling(split[i])[0] || split[i];
-      }
-   }
-   return split.join(" ");
 }
 
 function addWordToDict(str) {
@@ -56,6 +45,7 @@ function stems(str) {
 // Extract math
 function extractMath(str) {
    if(!is.string(str)) throw new Error("First parmater to extractMath must be a string.");
+   str = stops(str);
    str = words2numbers(str);
    const toFilter = ["!", "=<", "=>", "\\[", "\]", "%", "\|", "&", "~", "\,", "{", "}", "\\?", "@", "#", "’", "'", "\\."];
    const toKeep   = ["+", "*", "^", "-", "/", "="];
@@ -64,7 +54,6 @@ function extractMath(str) {
       str = str.replace(tmpReg, "");
    });
    str = str.replace(/\w{3,}/g,"");
-
    let split = str.split(" ");
 
    let ret = [];
@@ -83,10 +72,8 @@ function extractMath(str) {
       ret.push(nums.join(""));
    }
 
-   // console.log(str.split("+"));
-   // console.log(str.split("+").join(" "));
    str = trim(ret.join(" "));
-   str = stops(str);
+
    return str;
 }
 
@@ -95,15 +82,12 @@ function parse(str, skip) {
    if(is.object(skip)) {
       if(!(!!skip.trim))    str = trim(str);
       if(!(!!skip.lower))   str = lower(str);
-      if(!(!!skip.fixSp))   str = fixSpelling(str);
-      if(!(!!skip.w2n))     str = words2numbers(str);
       if(!(!!skip.extMath)) str = extractMath(str);
       if(!(!!skip.stops))   str = stops(str);
       if(!(!!skip.stems))   str = stems(str);
    } else {
       str = trim(str);
       str = lower(str);
-      str = fixSpelling(str);
       str = words2numbers(str);
       str = extractMath(str);
       str = stops(str);
@@ -115,7 +99,6 @@ function parse(str, skip) {
 module.exports = {
    trim:        trim,
    lower:       lower,
-   fixSpelling: fixSpelling,
    stops:       stops,
    stems:       stems,
    extractMath: extractMath,
