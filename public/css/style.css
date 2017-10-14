@@ -33,6 +33,6 @@
   margin-bottom: 15px;
 }
 
-/*.fb-login-button {
-  position: static;
-}*/
+.fb-login-button {
+  margin: 20px;
+}
