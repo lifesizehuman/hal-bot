@@ -120,7 +120,7 @@ module.exports = function(app) {
   app.post("/api/addTodo", function(req, res) {
     db.Todo.create({
       task: req.body.task,
-      userId: req.body.id
+      UserId: req.body.id
     }).then(function() {
       res.end();
     });
