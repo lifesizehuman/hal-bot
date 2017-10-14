@@ -8,7 +8,7 @@
   <link type="text/css" rel="stylesheet" href="../../css/materialize.min.css" media="screen,projection" />
   <link rel="stylesheet" type="text/css" href="../../css/style.css">
   <!--Let browser know website is optimized for mobile-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+  <link rel="stylesheet" href="../../css/bootstrap.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hal-Bot</title>
@@ -18,25 +18,25 @@
 
   <div id="fb-root"></div>
 
+  <nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href="#">
+    <img src="../../assets/logo.png" width="250px" alt="logo-image" />
+  </a>
 
-  <nav>
-    <div class="nav-wrapper">
-      <a href="#" class="brand-logo"><img src="../../assets/logo.png" width="250px" /></a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li>
-         <div class="fb-login-button" data-width="200" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true"></div>
-        </li>
-      </ul>
-    </div>
-  </nav>
+  <ul id="navbar-item">
+    <li>
+     <div class="fb-login-button" data-width="200" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true"></div>
+    </li>
+  </ul>
+</nav>
 
-  <div class="container">
+  <div class="container-fluid">
     <div id="index-banner" class="search-container">
       <div class="header center">
 
       </div>
     </div>
-    <div class="container-full">
+    <div class="container-fluid">
       <form>
         <div class="input-field">
           <input id="search" type="search" required>
@@ -119,7 +119,7 @@
       })
     });
   </script>
-  <script type="text/javascript" src="../../js/materialize.min.js"></script>
+  <script type="text/javascript" src="../../js/bootstrap.min.js"></script>
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </body>
