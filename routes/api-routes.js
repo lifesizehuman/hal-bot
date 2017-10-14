@@ -102,7 +102,7 @@ module.exports = function(app) {
     var id = req.params.id;
     db.User.findOrCreate({
       where: {
-        user_ID: id
+        fb_ID: id
       }
     }).then(function() {
       res.end();
