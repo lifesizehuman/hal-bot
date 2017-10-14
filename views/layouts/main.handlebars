@@ -105,7 +105,7 @@
 
             <div id="right-sidebar">
 
-              <p><input type="text" id="todo-input" class="form-control" placeholder="Add a To-Do"></p>
+              <p><input type="text" id="todo-input" name="todoinput" class="form-control" placeholder="Add a To-Do"></p>
               <p><a class="btn btn-primary" id="todo-button">Add To-do</a></p>
               <h3>Your To-Do's</h3>
               <div id="todos">
@@ -155,7 +155,7 @@
       event.preventDefault();
       var task = $("#todo-input").val();
       $.ajax({
-        type: "POST",
+        method: "POST",
         url: "/api/addTodo",
         data: {task: task, id: id}
       });
