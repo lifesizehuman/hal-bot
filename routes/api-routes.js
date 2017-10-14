@@ -5,6 +5,7 @@ const ww = new WheresWaldo();
 const cheerio = require("cheerio");
 const request = require("request");
 const math  = require("mathjs");
+const fb = require("../public/js/fb.js");
 
 module.exports = function(app) {
   app.get("/", function(req, res) {
