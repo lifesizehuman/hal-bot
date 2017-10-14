@@ -132,7 +132,7 @@ module.exports = function(app) {
       complete: req.body.complete // Someplace
     }, {
       where: {
-        id: req.body.id // Someplace
+        UserId: req.body.id // Someplace
       }
     });
   });
@@ -140,7 +140,7 @@ module.exports = function(app) {
   app.delete("/api/todo", function(req, res) {
     db.Todo.destroy({
       where: {
-        id: req.body.id // Someplace
+        UserId: req.body.id // Someplace
       }
     });
   });
