@@ -122,7 +122,17 @@
     }(document, 'script', 'facebook-jssdk'));
   </script>
 
-  <script type="text/javascript" src="../../js/fb.js"></script>
+  <script>
+    var id;
+    function logInfo() {
+      FB.getLoginStatus(function(response) {
+        var userID = response.authResponse.userID;
+        id = userID;
+      });
+    }
+    logInfo();
+    console.log(id);
+  </script>
 
   <script>
     $('.main-button').click(function() {
