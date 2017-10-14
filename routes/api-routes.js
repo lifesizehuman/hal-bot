@@ -93,7 +93,7 @@ module.exports = function(app) {
       if (pageid) {
         res.render("wiki", {pageid: pageid});
       } else {
-        res.redirect("/");
+        res.render("404");
       }
     });
   });
@@ -140,7 +140,7 @@ module.exports = function(app) {
         let obj = {twit: JSON.parse(body.body).html};
         res.render("tweets", obj);
       } catch(e) {
-        res.redirect("/");
+        res.render("404");
       }
      });
    });
