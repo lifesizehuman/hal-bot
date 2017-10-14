@@ -114,6 +114,10 @@
         var userID = response.authResponse.userID;
         console.log(userID);
         id = userID;
+        $.ajax({
+          type: "POST",
+          url: "/api/newUser" + id
+        });
       });
     };
 
