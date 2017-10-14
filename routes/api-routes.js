@@ -104,6 +104,8 @@ module.exports = function(app) {
       where: {
         user_ID: id
       }
+    }).then(function() {
+      res.end();
     });
   });
 
@@ -118,6 +120,8 @@ module.exports = function(app) {
   app.post("/api/addTodo", function(req, res) {
     db.Todo.create({
       task: req.body.task,// Someplace
+    }).then(function() {
+      res.end();
     });
   });
 
@@ -129,7 +133,7 @@ module.exports = function(app) {
       where: {
         id: req.body.id // Someplace
       }
-    })
+    });
   });
 
   app.delete("/api/todo", function(req, res) {
