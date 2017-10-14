@@ -31,6 +31,7 @@
     "mysql": "^2.15.0",
     "mysql2": "^1.4.2",
     "regex": "^0.1.1",
+    "regreplacer": "^1.1.5",
     "request": "^2.83.0",
     "sequelize": "^4.13.8",
     "sequelize-cli": "^3.0.0",
