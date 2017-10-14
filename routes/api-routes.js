@@ -5,7 +5,6 @@ const ww = new WheresWaldo();
 const cheerio = require("cheerio");
 const request = require("request");
 const math  = require("mathjs");
-const fb = require("../public/js/fb.js");
 
 module.exports = function(app) {
   app.get("/", function(req, res) {
@@ -27,7 +26,10 @@ module.exports = function(app) {
   });
 
   app.get("/api/recent/", function(req, res) {
-    db.Search.findAll().then(function(dbSearch) {
+    db.Search.findAll({
+      limit: 10,
+      order: [["createdAt", "DESC"]]
+    }).then(function(dbSearch) {
       res.json(dbSearch);
     });
   });
@@ -91,8 +93,15 @@ module.exports = function(app) {
       if (pageid) {
         res.render("wiki", {pageid: pageid});
       } else {
-        res.redirect("/");
+        res.render("404");
       }
+    });
+  });
+
+  app.post("/api/newUser/:id", function(req, res) {
+    var id = req.params.id;
+    db.User.create({
+      user_ID: id
     });
   });
 
@@ -138,7 +147,7 @@ module.exports = function(app) {
         let obj = {twit: JSON.parse(body.body).html};
         res.render("tweets", obj);
       } catch(e) {
-        res.redirect("/");
+        res.render("404");
       }
      });
    });
