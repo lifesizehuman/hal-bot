@@ -82,13 +82,12 @@ $(document).ready(function() {
       "<span>",
       todo.task,
       "</span>",
-      "<a class='delete pull-right'>x</button>",
-      "<a class='complete pull-right'>✓</button>",
+      "<button class='delete pull-right'>x</button>",
+      "<button class='complete pull-right'>✓</button>",
       "</li>"
     ].join(""));
 
     $newInputRow.find("button.delete").data("id", todo.id);
-    $newInputRow.find("input.edit").css("display", "none");
     $newInputRow.data("todo", todo);
     if (todo.complete) {
       $newInputRow.find("span").css("text-decoration", "line-through");
@@ -98,7 +97,7 @@ $(document).ready(function() {
 
   function insertToDo(event) {
     $("#todo-button").on("click", function(event) {
-      event.preventDefault();
+      // event.preventDefault();
 
       var todo = {
         task: $newToDoInput.val().trim(),
