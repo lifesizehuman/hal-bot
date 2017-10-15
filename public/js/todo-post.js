@@ -85,7 +85,7 @@ $(document).ready(function() {
   function createNewRow(todo) {
     var $newInputRow = $([
       "<li class='list-group-item todo-item'>",
-      "<span>",
+      "<span class='todo-item'>",
       todo.task,
       "</span>",
       "<button class='delete pull-right'>x</button>",
@@ -96,9 +96,9 @@ $(document).ready(function() {
     $newInputRow.find("button.delete").data("id", todo.id);
     $newInputRow.data("todo", todo);
     if (todo.complete === true) {
-      $newInputRow.find("span").css("text-decoration", "line-through");
+      $newInputRow.find(".todo-item").css("text-decoration", "line-through");
     } else {
-      $newInputRow.find("span").css("text-decoration", "none");
+      $newInputRow.find(".todo-item").css("text-decoration", "none");
     }
     return $newInputRow;
   }
