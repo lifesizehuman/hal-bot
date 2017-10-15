@@ -79,7 +79,7 @@ $(document).ready(function() {
     var $newInputRow = $([
       "<li class='list-group-item todo-item'>",
       "<span>",
-      todo.text,
+      todo.task,
       "</span>",
       "<input type='text' class='edit' style='display: none;'>",
       "<button class='delete btn btn-default'>x</button>",
