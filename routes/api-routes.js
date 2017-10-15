@@ -131,21 +131,21 @@ module.exports = function(app) {
     });
   });
 
-  app.put("/api/todo/:id", function(req, res) {
+  app.put("/api/todo", function(req, res) {
     db.Todo.update({
       task: req.body.task, // Someplace
       complete: req.body.complete // Someplace
     }, {
       where: {
-        UserId: req.body.id // Someplace
+        id: req.body.id // Someplace
       }
     });
   });
 
-  app.delete("/api/todo/:id", function(req, res) {
+  app.delete("/api/todo", function(req, res) {
     db.Todo.destroy({
       where: {
-        id: req.params.id // Someplace
+        id: req.body.id // Someplace
       }
     });
   });

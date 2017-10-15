@@ -97,7 +97,7 @@ $(document).ready(function() {
 
   function insertToDo(event) {
     $("#todo-button").on("click", function(event) {
-      // event.preventDefault();
+      event.preventDefault();
 
       var todo = {
         task: $newToDoInput.val().trim(),
@@ -111,7 +111,7 @@ $(document).ready(function() {
           console.log(err);
         }
       });
-      $newToDoInput.val("");
     });
+    $newToDoInput.val("");
   }
 });
