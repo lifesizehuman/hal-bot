@@ -131,7 +131,7 @@ module.exports = function(app) {
     });
   });
 
-  app.put("/api/todo", function(req, res) {
+  app.put("/api/todo/:id", function(req, res) {
     db.Todo.update({
       task: req.body.task, // Someplace
       complete: req.body.complete // Someplace
@@ -142,7 +142,7 @@ module.exports = function(app) {
     });
   });
 
-  app.delete("/api/todo", function(req, res) {
+  app.delete("/api/todo/:id", function(req, res) {
     db.Todo.destroy({
       where: {
         UserId: req.body.id // Someplace
