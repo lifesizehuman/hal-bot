@@ -17,9 +17,10 @@ module.exports = function(sequelize, DataTypes) {
     Todo.belongsTo(models.User, {
       foreignKey: {
         allowNull: false
-      }
+      },
+      targetKey: "fb_ID"
     });
-  }
+  };
 
   return Todo;
-}
+};
