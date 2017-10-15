@@ -12,13 +12,6 @@ $(document).ready(function() {
 
   getTodos();
 
-  function getTodos() {
-    $.get("/api/todo", function(data) {
-      myToDos = data;
-      initializeRows();
-    });
-  }
-
   function initializeRows() {
     $todoContainer.empty();
     var rowsToAdd = [];
@@ -28,12 +21,11 @@ $(document).ready(function() {
     $todoContainer.prepend(rowsToAdd);
   }
 
-  function editTodo() {
-    var currentTodo = $(this).data("todo");
-    $(this).children().hide();
-    $(this).children("input.edit").val(currentTodo.text);
-    $(this).children("input.edit").show();
-    $(this).children("input.edit").focus();
+  function getTodos() {
+    $.get("/api/todo", function(data) {
+      myToDos = data;
+      initializeRows();
+    });
   }
 
   function deleteTodo(event) {
@@ -44,6 +36,22 @@ $(document).ready(function() {
       url: "/api/todo/" + id
     }).done(getTodos);
   }
+
+  function editTodo() {
+    var currentTodo = $(this).data("todo");
+    $(this).children().hide();
+    $(this).children("input.edit").val(currentTodo.text);
+    $(this).children("input.edit").show();
+    $(this).children("input.edit").focus();
+  }
+
+  function toggleComplete(event) {
+    event.stopPropagation();
+    var todo = $(this).parent().data("todo");
+    todo.complete = !todo.complete;
+    updateTodo(todo);
+  }
+
 
   function finishEdit() {
     var updatedTodo = $(this).data("todo");
@@ -68,13 +76,6 @@ $(document).ready(function() {
     }
   }
 
-  function toggleComplete(event) {
-    event.stopPropagation();
-    var todo = $(this).parent().data("todo");
-    todo.complete = !todo.complete;
-    updateTodo(todo);
-  }
-
   function createNewRow(todo) {
     var $newInputRow = $([
       "<li class='list-group-item todo-item'>",
@@ -82,8 +83,8 @@ $(document).ready(function() {
       todo.task,
       "</span>",
       "<input type='text' class='edit' style='display: none;'>",
-      "<a class='delete'>x</button>",
-      "<a class='complete'>✓</button>",
+      "<a class='delete pull-right'>x</button>",
+      "<a class='complete pull-right'>✓</button>",
       "</li>"
     ].join(""));
 
@@ -96,8 +97,6 @@ $(document).ready(function() {
     return $newInputRow;
   }
 
-
-
   function insertToDo(event) {
     $("#todo-button").on("click", function(event) {
       event.preventDefault();
@@ -108,12 +107,13 @@ $(document).ready(function() {
       };
 
       var task = $("#todo-input").val();
-      $.post("/api/addTodo", todo).fail(function(err) {
+
+      $.post("/api/addTodo", todo, getTodos).fail(function(err) {
         if (err) {
           console.log(err);
         }
       });
-      $("#todo-input").val("");
+      $newToDoInput.val("");
     });
   }
 });
