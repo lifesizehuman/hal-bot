@@ -126,8 +126,8 @@ module.exports = function(app) {
     db.Todo.create({
       task: req.body.task,
       UserId: req.body.id
-    }).then(function() {
-      res.end();
+    }).then(function(dbTodo) {
+      res.json(dbTodo);
     });
   });
 
@@ -139,6 +139,8 @@ module.exports = function(app) {
       where: {
         id: req.params.id // Someplace
       }
+    }).then(function(dbTodo) {
+      res.json(dbTodo);
     });
   });
 
@@ -147,6 +149,8 @@ module.exports = function(app) {
       where: {
         id: req.params.id // Someplace
       }
+    }).then(function(dbTodo) {
+      res.json(dbTodo);
     });
   });
 
