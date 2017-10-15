@@ -145,7 +145,7 @@ module.exports = function(app) {
   app.delete("/api/todo/:id", function(req, res) {
     db.Todo.destroy({
       where: {
-        UserId: req.body.id // Someplace
+        id: req.params.id // Someplace
       }
     });
   });
