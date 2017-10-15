@@ -63,7 +63,12 @@ $(document).ready(function() {
   }
 
   function updateTodo(todo) {
-    $.ajax({method: "PUT", url: "/api/todo", data: todo}).done(getTodos);
+    var id = $(this).data("id");
+    $.ajax({
+      method: "PUT",
+      url: "/api/todo/" + id,
+      data: todo
+    }).done(getTodos);
   }
 
   function cancelEdit() {
