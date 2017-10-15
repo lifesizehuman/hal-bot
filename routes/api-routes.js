@@ -110,7 +110,12 @@ module.exports = function(app) {
   });
 
   app.get("/api/todo", function(req, res) {
+    var query = {};
+    if (req.query.id) {
+      query.UserID = req.query.fb_ID;
+    }
     db.Todo.findAll({
+      where: query,
       include: [{ model: db.User }]
     }).then(function(dbTodo) {
       res.json(dbTodo);
