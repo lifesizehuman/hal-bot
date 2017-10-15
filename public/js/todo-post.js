@@ -95,8 +95,10 @@ $(document).ready(function() {
 
     $newInputRow.find("button.delete").data("id", todo.id);
     $newInputRow.data("todo", todo);
-    if (todo.complete) {
+    if (todo.complete === true) {
       $newInputRow.find("span").css("text-decoration", "line-through");
+    } else {
+      $newInputRow.find("span").css("text-decoration", "none");
     }
     return $newInputRow;
   }
