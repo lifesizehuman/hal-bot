@@ -47,7 +47,8 @@ $(document).ready(function() {
 
   function toggleComplete(event) {
     event.stopPropagation();
-    var todo = $(this).data("todo");
+    var todo = $(this).parent().data("todo");
+    console.log(todo);
     todo.complete = !todo.complete;
     updateTodo(todo);
   }
