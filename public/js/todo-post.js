@@ -82,7 +82,6 @@ $(document).ready(function() {
       "<span>",
       todo.task,
       "</span>",
-      "<input type='text' class='edit' style='display: none;'>",
       "<a class='delete pull-right'>x</button>",
       "<a class='complete pull-right'>✓</button>",
       "</li>"
