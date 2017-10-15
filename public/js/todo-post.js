@@ -13,7 +13,7 @@ $(document).ready(function() {
   getTodos();
 
   function getTodos() {
-    $.get("/api/todos", function(data) {
+    $.get("/api/todo", function(data) {
       myToDos = data;
       initializeRows();
     });
@@ -41,7 +41,7 @@ $(document).ready(function() {
     var id = $(this).data("id");
     $.ajax({
       method: "DELETE",
-      url: "/api/todos/" + id
+      url: "/api/todo/" + id
     }).done(getTodos);
   }
 
@@ -55,7 +55,7 @@ $(document).ready(function() {
   }
 
   function updateTodo(todo) {
-    $.ajax({method: "PUT", url: "/api/todos", data: todo}).done(getTodos);
+    $.ajax({method: "PUT", url: "/api/todo", data: todo}).done(getTodos);
   }
 
   function cancelEdit() {
