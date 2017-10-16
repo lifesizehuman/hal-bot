@@ -151,13 +151,23 @@
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 
+    function getTodos(id) {
+      $.ajax({
+        type: "GET",
+        url: "/api/todo/" + id
+      });
+    }
+
     $("#todo-button").on("click", function(event) {
       event.preventDefault();
       var task = $("#todo-input").val();
       $.ajax({
         method: "POST",
         url: "/api/addTodo",
-        data: {task: task, id: id}
+        data: {
+          task: task,
+          id: id
+        }
       });
     });
   </script>
