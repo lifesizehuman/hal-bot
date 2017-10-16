@@ -1,5 +1,10 @@
 module.exports = function(sequelize, DataTypes) {
   let Todo = sequelize.define("Todo", {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     task: {
       type: DataTypes.TEXT,
       allowNull: false,

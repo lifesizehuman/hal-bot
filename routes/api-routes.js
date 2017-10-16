@@ -149,7 +149,7 @@ module.exports = function(app) {
 
     db.Todo.update(updateObj, {
       where: {
-        id: reqs.user; // Someplace
+        id: reqs.id // Someplace
       }
     });
   });

@@ -25,12 +25,10 @@ $(document).ready(function() {
     $.ajax({
         type: "GET",
         url: "/api/todo/" + userID
-      }
-    }).then((data) => {
+      }).then((data) => {
         clearTodos();
         data.map((entry) => insertTodo(entry));
-      }
-    });
+      });
   }
 
   function createTodo(task) {
@@ -50,7 +48,7 @@ $(document).ready(function() {
       url:  "/api/todo/",
       data: {
         complete: true,
-        userID: userID   // <<------ corect info??
+        userID: userID,   // <<------ corect info??
         id: id
       }
     }).then(() => getTodos());

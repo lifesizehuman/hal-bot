@@ -1,3 +1,5 @@
+const devmode = true;
+
 $(document).ready(function() {
   function search() {
     let query = $("#search").val().trim();
@@ -5,7 +7,8 @@ $(document).ready(function() {
       type: "GET",
       url: "/api/query/" + query,
       success: function(response) {
-        let sen = "http://" + window.location.hostname + `${response.address}`;
+        let mid = (devmode) ? ":8080" : "";
+        let sen = `http://${window.location.hostname}` + mid + `${response.address}`;
         window.location = sen;
       }
     });
@@ -38,7 +41,14 @@ $(document).ready(function() {
         if (i++ === 10) {
           break;
         }
-        let tmpP = $("<p>");
+        let tmpP = $("<a>");
+        tmpP.css("display","block");
+        let mid = (devmode) ? ":8080" : "" + "/";
+        let sen = `http://${window.location.hostname}`
+                  + mid
+                  + `/api/query/${entry.search_phrase}`; // make searches clickable
+                  console.log(sen);
+        tmpP.attr("href",sen);
         tmpP.text(entry.search_phrase);
         tag.append(tmpP);
       }
