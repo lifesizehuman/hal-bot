@@ -67,7 +67,7 @@ function createTodo(task) {
     url: "/api/todo",
     data: {
       task: task,
-      userID: userID  // <<------ corect info??
+      UserId: userID  // <<------ corect info??
     }
   }).then(() => getTodos());
 }
@@ -78,7 +78,7 @@ function completeTodo(id) {
     url:  "/api/todo/",
     data: {
       complete: true,
-      userID: userID,   // <<------ corect info??
+      UserId: userID,   // <<------ corect info??
       id: id
     }
   }).then(() => getTodos());
@@ -90,7 +90,7 @@ function updateTask(id, task) {
     url:  "/api/todo/",
     data: {
       task: task,
-      userID: userID,  // <<------ corect info??
+      UserId: userID,  // <<------ corect info??
       id: id           // <<------ corect info??
     }
   }).then(() => getTodos());
