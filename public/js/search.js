@@ -43,7 +43,7 @@ $(document).ready(function() {
         }
         let tmpP = $("<a>");
         tmpP.css("display","block");
-        let mid = (devmode) ? ":8080" : "" + "/";
+        let mid = (devmode) ? ":8080" : "";
         let sen = `http://${window.location.hostname}`
                   + mid
                   + `/api/query/${entry.search_phrase}`; // make searches clickable
