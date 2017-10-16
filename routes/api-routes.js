@@ -117,7 +117,7 @@ module.exports = function(app) {
     }
     db.Todo.findAll({
       where: {
-        UserId: id;
+        UserId: id
       },
       include: [{ model: db.User }]
     }).then(function(dbTodo) {
