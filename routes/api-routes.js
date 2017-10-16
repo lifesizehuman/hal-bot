@@ -99,7 +99,7 @@ module.exports = function(app) {
   });
 
   app.post("/api/newUser/:id", function(req, res) {
-    var id = req.params.id;
+    let id = req.params.id;
     db.User.findOrCreate({
       where: {
         fb_ID: id
@@ -110,14 +110,15 @@ module.exports = function(app) {
   });
 
   app.get("/api/todo/:id", function(req, res) {
-    var id = req.params.id;
-    var query = {};
+    let id = req.params.id;
+    let query = {};
     if (req.query.id) {
       query.UserID = req.query.fb_ID;
     }
     db.Todo.findAll({
       where: {
-        UserId: id
+        UserId: id,
+        complete: false
       },
       include: [{ model: db.User }]
     }).then(function(dbTodo) {
@@ -125,41 +126,37 @@ module.exports = function(app) {
     });
   });
 
-  app.post("/api/addTodo", function(req, res) {
+  app.post("/api/todo/", function(req, res) {
     db.Todo.create({
       task: req.body.task,
-      UserId: req.body.id
+      UserId: req.body.userID
     }).then(function(dbTodo) {
       res.json(dbTodo);
     });
   });
 
-  app.put("/api/todo/:id", function(req, res) {
-    db.Todo.update({
-      task: req.body.task, // Someplace
-      complete: req.body.complete // Someplace
-    }, {
-      where: {
-        id: req.params.id // Someplace
-      }
-    }).then(function(dbTodo) {
-      res.json(dbTodo);
-    });
-  });
+  app.put("/api/todo/", function(req, res) {
+    let reqs = req.body;
+    let updateObj = {};
 
-  app.delete("/api/todo/:id", function(req, res) {
-    db.Todo.destroy({
+    if(reqs.complete) {
+      updateObj.complete = reqs.complete;
+    }
+
+    if(reqs.task) {
+      updateObj.task = reqs.task;
+    }
+
+    db.Todo.update(updateObj, {
       where: {
-        id: req.params.id // Someplace
+        id: reqs.user; // Someplace
       }
-    }).then(function(dbTodo) {
-      res.json(dbTodo);
     });
   });
 
   app.get("/api/twitter/:term", function(req, res) {
-     var term = req.params.term;
-     var queryUrl = "https://publish.twitter.com/oembed?url=https://twitter.com/" + term;
+     let term = req.params.term;
+     let queryUrl = "https://publish.twitter.com/oembed?url=https://twitter.com/" + term;
 
      request(queryUrl, function(response, body) {
       try {

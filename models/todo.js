@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  var Todo = sequelize.define("Todo", {
+  let Todo = sequelize.define("Todo", {
     task: {
       type: DataTypes.TEXT,
       allowNull: false,
