@@ -1,4 +1,4 @@
-const devmode = true;
+const devmode = false;
 
 $(document).ready(function() {
   function search() {
