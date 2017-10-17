@@ -47,7 +47,7 @@ $(document).ready(function() {
     b.attr("class", "close delete-todo");
     b.attr("aria-label", "Close");
     let s = $("<span>");
-    s.attr("aria-hidden", "true");
+    s.attr("aria-hidden", "false");
     s.text(obj.task);
     b.html(s);
     p.html(b);
@@ -79,26 +79,26 @@ $(document).ready(function() {
   function completeTodo(id) {
     $.ajax({
       type: "PUT",
-      url: "/api/todo/",
+      url: "/api/todo/" + id,
       data: {
-        complete: true,
+        complete: true
         // UserId: userID, // <<------ corect info??
-        id: id
+        // id: id
       }
     }).then(() => getTodos());
   }
 
-  function updateTask(id, task) {
-    $.ajax({
-      type: "PUT",
-      url: "/api/todo/",
-      data: {
-        task: task,
-        // UserId: userID, // <<------ corect info??
-        id: id // <<------ corect info??
-      }
-    }).then(() => getTodos());
-  }
+  // function updateTask(id, task) {
+  //   $.ajax({
+  //     type: "PUT",
+  //     url: "/api/todo/",
+  //     data: {
+  //       task: task,
+  //       // UserId: userID, // <<------ corect info??
+  //       id: id // <<------ corect info??
+  //     }
+  //   }).then(() => getTodos());
+  // }
 
   $("#todo-button").on("click", function(event) {
     event.preventDefault();
@@ -108,12 +108,12 @@ $(document).ready(function() {
     createTodo(task);
   });
 
-  $(document).on("input", ".todo-item", function(event) {
-    event.preventDefault();
-    let task = $(this).val();
-    let id = $(this).attr("data-id");
-    updateTask(id, task);
-  });
+  // $(document).on("input", ".todo-item", function(event) {
+  //   event.preventDefault();
+  //   let task = $(this).val();
+  //   let id = $(this).attr("data-id");
+  //   updateTask(id, task);
+  // });
 
   $(document).on("click", 'delete-todo', function(event) {
     event.preventDefault();
