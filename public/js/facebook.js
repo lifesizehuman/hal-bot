@@ -161,7 +161,13 @@ $(document).ready(function() {
   //   updateTask(id, task);
   // });
 
-  $(document).on("click", 'delete-todo', function(event) {
+  $(document).on("click", "button.complete", function(event) {
+    event.preventDefault();
+    let id = $(this).attr("data-id");
+    completeTodo(id);
+  });
+
+  $(document).on("click", "button.delete", function(event) {
     event.preventDefault();
     let id = $(this).attr("data-id");
     deleteToDo(id);
