@@ -1,25 +1,22 @@
 let userID;
 window.fbAsyncInit = function() {
-  FB.init({
-    appId: '129221391068505',
-    autoLogAppEvents: true,
-    xfbml: true,
-    version: 'v2.10'
-  });
+  FB.init({appId: '129221391068505', autoLogAppEvents: true, xfbml: true, version: 'v2.10'});
   FB.AppEvents.logPageView();
   FB.getLoginStatus(function(response) {
     let userID = response.authResponse.userID;
     console.log(userID);
+    let id = userID;
     $.ajax({
       type: "POST",
-      url: "/api/newUser/" + userID
+      url: "/api/newUser/" + id
     });
     getTodos();
   });
 };
 
 (function(d, s, id) {
-  let js, fjs = d.getElementsByTagName(s)[0];
+  let js,
+    fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) {
     return;
   }
@@ -35,39 +32,40 @@ function clearTodos() {
 
 function insertTodo(obj) {
   let p = $("<p>");
-  p.attr("class","todo-item");
+  p.attr("class", "todo-item");
   p.attr("contenteditable", true);
-  p.attr("data-id",obj.id);
+  p.attr("data-id", obj.id);
   let b = $("<button>");
-  b.attr("type","button");
-  b.attr("data-id",obj.id);
+  b.attr("type", "button");
+  b.attr("data-id", obj.id);
   b.attr("class", "close delete-todo");
   b.attr("aria-label", "Close");
   let s = $("<span>");
-  s.attr("aria-hidden","true");
+  s.attr("aria-hidden", "true");
   s.text("&times;");
   b.html(s);
   p.html(b);
   $("#todos").append(p);
 }
 
-function getTodos() {
+function getTodos(id) {
   $.ajax({
-      type: "GET",
-      url: "/api/todo/" + userID
-    }).then((data) => {
-      clearTodos();
-      data.map((entry) => insertTodo(entry));
-    });
+    type: "GET",
+    url: "/api/todo/" + id
+  }).then((data) => {
+    clearTodos();
+    data.map((entry) => insertTodo(entry));
+  });
 }
 
 function createTodo(task) {
+  let id = req.body.id;
   $.ajax({
     method: "POST",
     url: "/api/todo",
     data: {
       task: task,
-      UserId: userID  // <<------ corect info??
+      id: id // <<------ corect info??
     }
   }).then(() => getTodos());
 }
@@ -75,10 +73,10 @@ function createTodo(task) {
 function completeTodo(id) {
   $.ajax({
     type: "PUT",
-    url:  "/api/todo/",
+    url: "/api/todo/",
     data: {
       complete: true,
-      UserId: userID,   // <<------ corect info??
+      // UserId: userID, // <<------ corect info??
       id: id
     }
   }).then(() => getTodos());
@@ -87,11 +85,11 @@ function completeTodo(id) {
 function updateTask(id, task) {
   $.ajax({
     type: "PUT",
-    url:  "/api/todo/",
+    url: "/api/todo/",
     data: {
       task: task,
-      UserId: userID,  // <<------ corect info??
-      id: id           // <<------ corect info??
+      // UserId: userID, // <<------ corect info??
+      id: id // <<------ corect info??
     }
   }).then(() => getTodos());
 }
@@ -99,11 +97,12 @@ function updateTask(id, task) {
 $("#todo-button").on("click", function(event) {
   event.preventDefault();
   let task = $("#todo-input").val();
-  if(!task) return;
+  if (!task)
+    return;
   createTodo(task);
 });
 
-$(document).on("input",".todo-item", function(event) {
+$(document).on("input", ".todo-item", function(event) {
   event.preventDefault();
   let task = $(this).val();
   let id = $(this).attr("data-id");
