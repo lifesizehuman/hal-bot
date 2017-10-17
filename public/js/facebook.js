@@ -66,7 +66,7 @@ $(document).ready(function() {
       data: {
         task: task,
         complete: false,
-        UserId: id
+        id: id
       }
     }).then(() => getTodos());
   }
