@@ -164,7 +164,7 @@ module.exports = function(app) {
     }
 
     db.Todo.update(updateObj, {
-      complete: req.complete,
+      complete: reqs.complete,
       where: {
         id: req.params.id // Someplace
       }
