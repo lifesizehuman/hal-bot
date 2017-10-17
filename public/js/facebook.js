@@ -1,4 +1,6 @@
 $(document).ready(function() {
+  var $todoContainer = $("#todos");
+  var $newToDoInput = $("#todo-input");
   var id;
   let userID;
   window.fbAsyncInit = function() {
@@ -32,11 +34,23 @@ $(document).ready(function() {
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
 
+
+  var myToDos = [];
+
+  function initializeRows() {
+    $todoContainer.empty();
+    var rowsToAdd = [];
+    for (var i = 0; i < myToDos.length; i++) {
+      rowsToAdd.push(createNewRow(myToDos[i]));
+    }
+    $todoContainer.prepend(rowsToAdd);
+  }
+
   function clearTodos() {
     $("#todos").empty();
   }
 
-  function insertTodo(todo) {
+  function createNewRow(todo) {
     var $newInputRow = $([
       "<li class='list-group-item todo-item'>",
       "<span class='todo-item'>",
@@ -80,8 +94,10 @@ $(document).ready(function() {
       type: "GET",
       url: "/api/todo/"
     }).then((data) => {
-      clearTodos();
-      data.map((entry) => insertTodo(entry));
+      myToDos = data;
+      initializeRows();
+      // // clearTodos();
+      // data.map((entry) => insertTodo(entry));
     });
   }
 
@@ -109,6 +125,14 @@ $(document).ready(function() {
     }).then(() => getTodos());
   }
 
+  function deleteToDo(event) {
+    var id = $(this).data("id");
+    $.ajax({
+      type: "DELETE",
+      url: "/api/todo" + id
+    }).done(() => getTodos());
+  }
+
   // function updateTask(id, task) {
   //   $.ajax({
   //     type: "PUT",
@@ -126,7 +150,7 @@ $(document).ready(function() {
     let task = $("#todo-input").val();
     if (!task)
       return;
-    createTodo(task);
+    createTodo(task).then($newToDoInput.val(""));
   });
 
   // $(document).on("input", ".todo-item", function(event) {
@@ -139,52 +163,6 @@ $(document).ready(function() {
   $(document).on("click", 'delete-todo', function(event) {
     event.preventDefault();
     let id = $(this).attr("data-id");
-    completeTodo(id);
+    deleteToDo(id);
   });
 });
-
-// var id;
-// window.fbAsyncInit = function() {
-//   FB.init({appId: '129221391068505', autoLogAppEvents: true, xfbml: true, version: 'v2.10'});
-//   FB.AppEvents.logPageView();
-//   FB.getLoginStatus(function(response) {
-//     var userID = response.authResponse.userID;
-//     console.log(userID);
-//     id = userID;
-//     $.ajax({
-//       type: "POST",
-//       url: "/api/newUser/" + id
-//     });
-//   });
-// };
-// (function(d, s, id) {
-//   var js,
-//     fjs = d.getElementsByTagName(s)[0];
-//   if (d.getElementById(id)) {
-//     return;
-//   }
-//   js = d.createElement(s);
-//   js.id = id;
-//   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=129221391068505";
-//   fjs.parentNode.insertBefore(js, fjs);
-// }(document, 'script', 'facebook-jssdk'));
-//
-// function getTodos(id) {
-//   $.ajax({
-//     type: "GET",
-//     url: "/api/todo/" + id
-//   });
-// }
-//
-// $("#todo-button").on("click", function(event) {
-//   event.preventDefault();
-//   var task = $("#todo-input").val();
-//   $.ajax({
-//     method: "POST",
-//     url: "/api/addTodo",
-//     data: {
-//       task: task,
-//       id: id
-//     }
-//   });
-// });
