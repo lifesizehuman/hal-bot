@@ -164,6 +164,7 @@ module.exports = function(app) {
     }
 
     db.Todo.update(updateObj, {
+      complete: req.complete,
       where: {
         id: req.params.id // Someplace
       }
@@ -173,7 +174,7 @@ module.exports = function(app) {
   app.delete("/api/todo/:id", function(req, res) {
     db.Todo.destroy({
       where: {
-        id: req.params.id // Someplace
+        id: req.body.id // Someplace
       }
     }).then(function(dbTodo) {
       res.json(dbTodo);
