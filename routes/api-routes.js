@@ -109,8 +109,8 @@ module.exports = function(app) {
     });
   });
 
-  app.get("/api/todo/", function(req, res) {
-    let id = req.body.id;
+  app.get("/api/todo/:id", function(req, res) {
+    let id = req.params.id;
     let query = {};
     if (req.query.id) {
       query.UserID = req.query.fb_ID;

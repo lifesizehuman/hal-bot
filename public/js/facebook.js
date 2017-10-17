@@ -48,10 +48,10 @@ function insertTodo(obj) {
   $("#todos").append(p);
 }
 
-function getTodos(id) {
+function getTodos() {
   $.ajax({
     type: "GET",
-    url: "/api/todo/" + id
+    url: "/api/todo/"
   }).then((data) => {
     clearTodos();
     data.map((entry) => insertTodo(entry));
