@@ -121,8 +121,6 @@ $(document).ready(function() {
         where: {
           id: id
         }
-        // UserId: userID, // <<------ corect info??
-        // id: id
       }
     }).then(() => getTodos());
   }
@@ -133,8 +131,11 @@ $(document).ready(function() {
     // }
     $.ajax({
       type: "DELETE",
-      url: "/api/todo/" + id
-    }).done(() => getTodos());
+      url: "/api/todo/" + id,
+      data: {
+        id: id
+      }
+    }).then(() => getTodos());
   }
 
   // function updateTask(id, task) {
