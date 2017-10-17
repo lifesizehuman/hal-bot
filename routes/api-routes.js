@@ -124,8 +124,8 @@ module.exports = function(app) {
     console.log(id);
     db.Todo.findAll({
       where: {
-        UserId: req.body.id
-        // complete: false
+        UserId: id,
+        complete: false
       },
       include: [{
         model: db.User,

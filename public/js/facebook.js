@@ -2,7 +2,12 @@ $(document).ready(function() {
   var id;
   let userID;
   window.fbAsyncInit = function() {
-    FB.init({appId: '129221391068505', autoLogAppEvents: true, xfbml: true, version: 'v2.10'});
+    FB.init({
+      appId: '129221391068505',
+      autoLogAppEvents: true,
+      xfbml: true,
+      version: 'v2.10'
+    });
     FB.AppEvents.logPageView();
     FB.getLoginStatus(function(response) {
       let userID = response.authResponse.userID;
