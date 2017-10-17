@@ -56,7 +56,6 @@ $(document).ready(function() {
     ].join(""));
 
     $newInputRow.find("button.delete").data("id", todo.id);
-    $newInputRow.find("button.complete").data("id", todo.id);
     $newInputRow.data("todo", todo);
     if (todo.complete === true) {
       $newInputRow.find(".todo-item").css("text-decoration", "line-through");
@@ -85,7 +84,10 @@ $(document).ready(function() {
   // }
 
   function getTodos(id) {
-    $.ajax({type: "GET", url: "/api/todo/"}).then((data) => {
+    $.ajax({
+      type: "GET",
+      url: "/api/todo/"
+    }).then((data) => {
       myToDos = data;
       initializeRows();
       console.log(data);
@@ -107,7 +109,7 @@ $(document).ready(function() {
   }
 
   function completeTodo(todo) {
-    var id = $(this).data(todo.id);
+    var id = $(this).parent().data("todo");
     $.ajax({
       type: "PUT",
       url: "/api/todo/",
@@ -120,7 +122,7 @@ $(document).ready(function() {
   }
 
   function deleteToDo(todo) {
-    var id = $(this).data("id");
+    var id = $(this).parent().data("id");
     console.log(id);
     $.ajax({
       type: "DELETE",
