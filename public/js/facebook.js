@@ -88,6 +88,7 @@ $(document).ready(function() {
     $.ajax({type: "GET", url: "/api/todo/"}).then((data) => {
       myToDos = data;
       initializeRows();
+      console.log(data);
       // // clearTodos();
       // data.map((entry) => insertTodo(entry));
     });
