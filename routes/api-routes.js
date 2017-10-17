@@ -129,7 +129,7 @@ module.exports = function(app) {
   app.post("/api/todo/", function(req, res) {
     db.Todo.create({
       task: req.body.task,
-      UserId: req.body.UserId
+      UserId: req.body.id
     }).then(function(dbTodo) {
       res.json(dbTodo);
     });
@@ -149,8 +149,18 @@ module.exports = function(app) {
 
     db.Todo.update(updateObj, {
       where: {
-        id: reqs.id // Someplace
+        id: req.params.id // Someplace
       }
+    });
+  });
+
+  app.delete("/api/todo/:id", function(req, res) {
+    db.Todo.destroy({
+      where: {
+        id: req.params.id // Someplace
+      }
+    }).then(function(dbTodo) {
+      res.json(dbTodo);
     });
   });
 
