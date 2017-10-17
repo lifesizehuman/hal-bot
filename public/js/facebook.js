@@ -59,13 +59,11 @@ function getTodos(id) {
 }
 
 function createTodo(task) {
-  let id = req.body.id;
   $.ajax({
     method: "POST",
     url: "/api/todo",
     data: {
-      task: task,
-      id: id // <<------ corect info??
+      task: task
     }
   }).then(() => getTodos());
 }
