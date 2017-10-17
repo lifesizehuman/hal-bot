@@ -3,7 +3,7 @@ module.exports = function(sequelize, DataTypes) {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true,
+      autoIncrement: true
     },
     task: {
       type: DataTypes.TEXT,
@@ -19,13 +19,7 @@ module.exports = function(sequelize, DataTypes) {
   });
 
   Todo.associate = function(models) {
-    Todo.belongsTo(models.User, {
-      // foreignKey: {
-      //   allowNull: false
-      // },
-      targetKey: "UserId"
-    });
+    Todo.belongsTo(models.User, { foreignKey: "fb_ID" });
   };
-
   return Todo;
 };
