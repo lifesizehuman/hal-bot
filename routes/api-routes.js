@@ -116,12 +116,12 @@ module.exports = function(app) {
   });
 
   app.get("/api/todo/:id", function(req, res) {
+    console.log(req.params.id);
     let id = req.params.id;
     let query = {};
     if (req.query.id) {
       query.UserId = req.query.fb_ID;
     }
-    console.log(id);
     db.Todo.findAll({
       where: {
         UserId: id,
@@ -130,7 +130,7 @@ module.exports = function(app) {
       include: [{
         model: db.User,
         where: {
-          fb_ID: req.body.id
+          fb_ID: req.params.id
         },
         required: false
       }]

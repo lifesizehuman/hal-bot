@@ -8,7 +8,11 @@ module.exports = function(sequelize, DataTypes) {
 
   User.associate = function(models) {
     User.hasMany(models.Todo, {
-      onDelete: "CASCADE"
+      onDelete: "CASCADE",
+      foreignKey: {
+        name: "UserId"
+        // allowNull: false
+      }
     });
   }
 
