@@ -108,8 +108,10 @@ $(document).ready(function() {
     }).then(() => getTodos());
   }
 
-  function completeTodo(todo) {
-    var id = $(this).parent().data("todo");
+  function completeTodo() {
+    for (var i = 0; i < myToDos.length; i++) {
+      var id = myToDos[i].id;
+    }
     $.ajax({
       type: "PUT",
       url: "/api/todo/",
@@ -121,9 +123,10 @@ $(document).ready(function() {
     }).then(() => getTodos());
   }
 
-  function deleteToDo(todo) {
-    var id = $(this).parent().data("id");
-    console.log(id);
+  function deleteToDo() {
+    for (var i = 0; i < myToDos.length; i++) {
+      var id = myToDos[i].id;
+    }
     $.ajax({
       type: "DELETE",
       url: "/api/todo/" + id
