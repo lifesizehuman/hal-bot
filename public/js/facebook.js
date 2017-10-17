@@ -36,23 +36,44 @@ $(document).ready(function() {
     $("#todos").empty();
   }
 
-  function insertTodo(obj) {
-    let p = $("<p>");
-    p.attr("class", "todo-item");
-    p.attr("contenteditable", false);
-    p.attr("data-id", obj.id);
-    let b = $("<button>");
-    b.attr("type", "button");
-    b.attr("data-id", obj.id);
-    b.attr("class", "close delete-todo");
-    b.attr("aria-label", "Close");
-    let s = $("<span>");
-    s.attr("aria-hidden", "false");
-    s.text(obj.task);
-    b.html(s);
-    p.html(b);
-    $("#todos").append(p);
+  function insertTodo(todo) {
+    var $newInputRow = $([
+      "<li class='list-group-item todo-item'>",
+      "<span class='todo-item'>",
+      todo.task,
+      "</span>",
+      "<button class='delete pull-right'>x</button>",
+      "<button class='complete pull-right'>✓</button>",
+      "</li>"
+    ].join(""));
+
+    $newInputRow.find("button.delete").data("id", todo.id);
+    $newInputRow.data("todo", todo);
+    if (todo.complete === true) {
+      $newInputRow.find(".todo-item").css("text-decoration", "line-through");
+    } else {
+      $newInputRow.find(".todo-item").css("text-decoration", "none");
+    }
+    return $newInputRow;
   }
+
+  // function insertTodo(obj) {
+  //   let p = $("<p>");
+  //   p.attr("class", "todo-item");
+  //   p.attr("contenteditable", false);
+  //   p.attr("data-id", obj.id);
+  //   let b = $("<button>");
+  //   b.attr("type", "button");
+  //   b.attr("data-id", obj.id);
+  //   b.attr("class", "close delete-todo");
+  //   b.attr("aria-label", "Close");
+  //   let s = $("<span>");
+  //   s.attr("aria-hidden", "true");
+  //   s.text(obj.task);
+  //   b.html(s);
+  //   p.html(b);
+  //   $("#todos").append(p);
+  // }
 
   function getTodos(id) {
     $.ajax({
