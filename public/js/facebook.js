@@ -48,7 +48,7 @@ $(document).ready(function() {
     b.attr("aria-label", "Close");
     let s = $("<span>");
     s.attr("aria-hidden", "true");
-    s.text(obj.task + " &times;");
+    s.text(obj.task);
     b.html(s);
     p.html(b);
     $("#todos").append(p);
