@@ -104,8 +104,11 @@ module.exports = function(app) {
     });
   });
 
+  var fbID;
+
   app.post("/api/newUser/:id", function(req, res) {
     let id = req.params.id;
+    fbID = id;
     db.User.findOrCreate({
       where: {
         fb_ID: id
@@ -124,15 +127,15 @@ module.exports = function(app) {
 
     db.Todo.findAll({
       where: {
-        UserId: 792187397618703,
+        UserId: fbID,
         complete: false
       },
       include: [{
-        model: db.User
-        // where: {
-        //   fb_ID: req.params.id
-        // },
-        // required: false
+        model: db.User,
+        where: {
+          fb_ID: fbID
+        },
+        required: false
       }]
     }).then(function(dbTodo) {
       console.log(res.body);
