@@ -121,7 +121,6 @@ module.exports = function(app) {
     // if (req.query.id) {
     //   query.UserId = req.query.fb_ID;
     // }
-    console.log(res.body);
 
     db.Todo.findAll({
       where: {
@@ -136,6 +135,7 @@ module.exports = function(app) {
         // required: false
       }]
     }).then(function(dbTodo) {
+      console.log(res.body);
       res.json(dbTodo);
     });
   });
