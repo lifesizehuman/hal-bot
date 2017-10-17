@@ -106,7 +106,7 @@ $(document).ready(function() {
   }
 
   function completeTodo(todo) {
-    var id = todo.id;
+    var id = $(this).data("id");
     $.ajax({
       type: "PUT",
       url: "/api/todo/",
@@ -119,7 +119,7 @@ $(document).ready(function() {
   }
 
   function deleteToDo(todo) {
-    var id = todo.id;
+    var id = $(this).data("id");
     console.log(id);
     $.ajax({
       type: "DELETE",
