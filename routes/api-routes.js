@@ -115,13 +115,14 @@ module.exports = function(app) {
     });
   });
 
-  app.get("/api/todo/:id", function(req, res) {
-    console.log(req.params.id);
-    let id = req.params.id;
-    let query = {};
-    if (req.query.id) {
-      query.UserId = req.query.fb_ID;
-    }
+  app.get("/api/todo/", function(req, res) {
+    // console.log(req.params.id);
+    // let id = req.params.id;
+    // let query = {};
+    // if (req.query.id) {
+    //   query.UserId = req.query.fb_ID;
+    // }
+    console.log(req.body);
     db.Todo.findAll({
       where: {
         UserId: id,
