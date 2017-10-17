@@ -58,7 +58,7 @@ $(document).ready(function() {
 
     $newInputRow.find("button.delete").data("id", todo.id);
     $newInputRow.data("todo", todo);
-    if (todo.complete === true) {
+    if (todo.complete === 1) {
       $newInputRow.find(".todo-item").css("text-decoration", "line-through");
     } else {
       $newInputRow.find(".todo-item").css("text-decoration", "none");
