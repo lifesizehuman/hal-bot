@@ -122,7 +122,7 @@ module.exports = function(app) {
     // if (req.query.id) {
     //   query.UserId = req.query.fb_ID;
     // }
-    console.log(req.body);
+    console.log(res.body);
     // db.Todo.findAll({
     //   where: {
     //     UserId: id,
