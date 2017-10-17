@@ -11,8 +11,9 @@ $(document).ready(function() {
       $.ajax({
         type: "POST",
         url: "/api/newUser/" + id
+      }).then(function(event) {
+        getTodos();
       });
-      getTodos();
     });
   };
 
