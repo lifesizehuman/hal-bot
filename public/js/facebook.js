@@ -109,11 +109,11 @@ $(document).ready(function() {
     var id = todo.id;
     $.ajax({
       type: "PUT",
-      url: "/api/todo/" + id,
+      url: "/api/todo/",
       data: {
-        complete: true
+        complete: true,
         // UserId: userID, // <<------ corect info??
-        // id: id
+        id: id
       }
     }).then(() => getTodos());
   }
