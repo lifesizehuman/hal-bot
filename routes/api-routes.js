@@ -124,7 +124,7 @@ module.exports = function(app) {
 
     db.Todo.findAll({
       where: {
-        UserId: id,
+        UserId: 792187397618703,
         complete: false
       },
       include: [{
