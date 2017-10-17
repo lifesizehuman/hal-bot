@@ -114,7 +114,7 @@ $(document).ready(function() {
     }).then(() => getTodos());
   }
 
-  function completeTodo(id) {
+  function completeTodo(event) {
     $.ajax({
       type: "PUT",
       url: "/api/todo/" + id,
@@ -128,9 +128,10 @@ $(document).ready(function() {
 
   function deleteToDo(event) {
     var id = $(this).data("id");
+    console.log(id);
     $.ajax({
       type: "DELETE",
-      url: "/api/todo" + id
+      url: "/api/todo/" + id
     }).done(() => getTodos());
   }
 
