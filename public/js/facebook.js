@@ -11,9 +11,7 @@ $(document).ready(function() {
       $.ajax({
         type: "POST",
         url: "/api/newUser/" + id
-      }).then(function(event) {
-        getTodos();
-      });
+      }).then(() => getTodos());
     });
   };
 
@@ -51,7 +49,7 @@ $(document).ready(function() {
     $("#todos").append(p);
   }
 
-  function getTodos() {
+  function getTodos(userID) {
     $.ajax({
       type: "GET",
       url: "/api/todo/" + userID
