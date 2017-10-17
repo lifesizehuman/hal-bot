@@ -117,8 +117,8 @@ module.exports = function(app) {
     }
     db.Todo.findAll({
       where: {
-        UserId: req.query.fb_ID,
-        complete: false
+        UserId: id
+        // complete: false
       },
       include: [{ model: db.User }]
     }).then(function(dbTodo) {
