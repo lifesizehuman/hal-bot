@@ -118,13 +118,13 @@ module.exports = function(app) {
     console.log(id);
     db.Todo.findAll({
       where: {
-        UserId: id
+        UserId: req.body.id
         // complete: false
       },
       include: [{
         model: db.User,
         where: {
-          fb_ID: id
+          fb_ID: req.body.id
         },
         required: false
       }]
