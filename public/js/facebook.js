@@ -105,7 +105,7 @@ $(document).ready(function() {
     }).then(() => getTodos());
   }
 
-  function completeTodo(event, todo) {
+  function completeTodo(todo) {
     var id = todo.id;
     $.ajax({
       type: "PUT",
@@ -118,8 +118,7 @@ $(document).ready(function() {
     }).then(() => getTodos());
   }
 
-  function deleteToDo(event, todo) {
-    event.stopPropagation();
+  function deleteToDo(todo) {
     var id = todo.id;
     console.log(id);
     $.ajax({
