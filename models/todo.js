@@ -19,7 +19,12 @@ module.exports = function(sequelize, DataTypes) {
   });
 
   Todo.associate = function(models) {
-    Todo.belongsTo(models.User, { foreignKey: "UserId" });
+    Todo.belongsTo(models.User, {
+      // foreignKey: {
+      //   allowNull: false
+      // },
+      targetKey: "fb_ID"
+    });
   };
   return Todo;
 };
