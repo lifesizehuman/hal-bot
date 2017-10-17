@@ -58,14 +58,14 @@ function getTodos() {
   });
 }
 
-function createTodo(task) {
+function createTodo(task, id) {
   $.ajax({
     method: "POST",
     url: "/api/addTodo",
     data: {
       task: task,
-      complete: false
-      // UserId: id
+      complete: false,
+      UserId: id
     }
   }).then(() => getTodos());
 }
