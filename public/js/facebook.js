@@ -39,7 +39,7 @@ $(document).ready(function() {
   function insertTodo(obj) {
     let p = $("<p>");
     p.attr("class", "todo-item");
-    p.attr("contenteditable", true);
+    p.attr("contenteditable", false);
     p.attr("data-id", obj.id);
     let b = $("<button>");
     b.attr("type", "button");
