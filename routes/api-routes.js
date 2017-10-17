@@ -117,27 +117,26 @@ module.exports = function(app) {
 
   app.get("/api/todo/", function(req, res) {
     // console.log(req.params.id);
-    // let id = req.params.id;
+    let id = req.params.id;
     // let query = {};
     // if (req.query.id) {
     //   query.UserId = req.query.fb_ID;
     // }
-    console.log(res.body);
-    // db.Todo.findAll({
-    //   where: {
-    //     UserId: id,
-    //     complete: false
-    //   },
-    //   include: [{
-    //     model: db.User,
-    //     where: {
-    //       fb_ID: req.params.id
-    //     },
-    //     required: false
-    //   }]
-    // }).then(function(dbTodo) {
-    //   res.json(dbTodo);
-    // });
+    db.Todo.findAll({
+      where: {
+        UserId: id,
+        complete: false
+      },
+      include: [{
+        model: db.User
+        // where: {
+        //   fb_ID: req.params.id
+        // },
+        // required: false
+      }]
+    }).then(function(dbTodo) {
+      res.json(dbTodo);
+    });
   });
 
   app.post("/api/addTodo/", function(req, res) {
