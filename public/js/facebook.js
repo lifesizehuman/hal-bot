@@ -41,6 +41,7 @@ $(document).ready(function() {
     p.attr("class", "todo-item");
     p.attr("contenteditable", true);
     p.attr("data-id", obj.id);
+    p.text(obj.task);
     let b = $("<button>");
     b.attr("type", "button");
     b.attr("data-id", obj.id);

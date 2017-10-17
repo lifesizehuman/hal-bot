@@ -138,7 +138,6 @@ module.exports = function(app) {
         required: false
       }]
     }).then(function(dbTodo) {
-      console.log(dbTodo);
       res.json(dbTodo);
     });
   });
@@ -146,13 +145,13 @@ module.exports = function(app) {
   app.post("/api/addTodo/", function(req, res) {
     db.Todo.create({
       task: req.body.task,
-      UserId: req.body.id
+      UserId: fbID
     }).then(function(dbTodo) {
       res.json(dbTodo);
     });
   });
 
-  app.put("/api/todo/", function(req, res) {
+  app.put("/api/todo/:id", function(req, res) {
     let reqs = req.body;
     let updateObj = {};
 
