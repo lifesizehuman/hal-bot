@@ -76,7 +76,7 @@ function completeTodo(id) {
     data: {
       complete: true,
       // UserId: userID, // <<------ corect info??
-      id: id
+      UserId: id
     }
   }).then(() => getTodos());
 }
