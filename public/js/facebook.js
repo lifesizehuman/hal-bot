@@ -49,10 +49,10 @@ $(document).ready(function() {
     $("#todos").append(p);
   }
 
-  function getTodos(userID) {
+  function getTodos(id) {
     $.ajax({
       type: "GET",
-      url: "/api/todo/" + userID
+      url: "/api/todo/" + id
     }).then((data) => {
       clearTodos();
       data.map((entry) => insertTodo(entry));

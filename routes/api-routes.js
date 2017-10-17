@@ -109,7 +109,7 @@ module.exports = function(app) {
     });
   });
 
-  app.get("/api/todo/:id", function(req, res) {
+  app.get("/api/todo/", function(req, res) {
     let id = req.params.id;
     let query = {};
     if (req.query.id) {
@@ -117,11 +117,11 @@ module.exports = function(app) {
     }
     console.log(id);
     db.Todo.findAll({
-      where: {
-        UserId: id
-        // complete: false
-      },
-      include: [{ model: db.User, as: "UserId" }]
+      // where: {
+      //   UserId: id
+      //   // complete: false
+      // },
+      include: [{ model: db.User }]
     }).then(function(dbTodo) {
       res.json(dbTodo);
     });
