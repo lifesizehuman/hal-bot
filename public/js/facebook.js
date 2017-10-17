@@ -48,12 +48,13 @@ $(document).ready(function() {
     var $newInputRow = $([
       "<li class='list-group-item todo-item'>",
       "<span class='todo-item'>",
-      todo.task,
+      todo.task + todo.id,
       "</span>",
       "<button class='delete pull-right'>x</button>",
       "<button class='complete pull-right'>✓</button>",
       "</li>"
     ].join(""));
+
 
     $newInputRow.find("button.delete").data("id", todo.id);
     $newInputRow.data("todo", todo);
@@ -62,6 +63,7 @@ $(document).ready(function() {
     } else {
       $newInputRow.find(".todo-item").css("text-decoration", "none");
     }
+    // $("#todos").append($newInputRow);
     return $newInputRow;
   }
 
@@ -90,7 +92,6 @@ $(document).ready(function() {
     }).then((data) => {
       myToDos = data;
       initializeRows();
-      console.log(data);
       // // clearTodos();
       // data.map((entry) => insertTodo(entry));
     });
@@ -109,9 +110,9 @@ $(document).ready(function() {
   }
 
   function completeTodo() {
-    for (var i = 0; i < myToDos.length; i++) {
-      var id = myToDos[i].id;
-    }
+    // for (var i = 0; i < myToDos.length; i++) {
+    //   var id = myToDos[i].id;
+    // }
     $.ajax({
       type: "PUT",
       url: "/api/todo/" + id,
@@ -124,9 +125,9 @@ $(document).ready(function() {
   }
 
   function deleteToDo() {
-    for (var i = 0; i < myToDos.length; i++) {
-      var id = myToDos[i].id;
-    }
+    // for (var i = 0; i < myToDos.length; i++) {
+    //   var id = myToDos[i].id;
+    // }
     $.ajax({
       type: "DELETE",
       url: "/api/todo/" + id
@@ -150,7 +151,8 @@ $(document).ready(function() {
     let task = $("#todo-input").val();
     if (!task)
       return;
-    createTodo(task).then($newToDoInput.val(""));
+    createTodo(task);
+    $newToDoInput.val("");
   });
 
   // $(document).on("input", ".todo-item", function(event) {
