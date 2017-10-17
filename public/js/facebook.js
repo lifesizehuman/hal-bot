@@ -109,15 +109,18 @@ $(document).ready(function() {
     }).then(() => getTodos());
   }
 
-  function completeTodo() {
-    // for (var i = 0; i < myToDos.length; i++) {
-    //   var id = myToDos[i].id;
-    // }
+  function completeTodo(todo) {
+    for (var i = 0; i < myToDos.length; i++) {
+      var id = myToDos[i].id;
+    }
     $.ajax({
       type: "PUT",
       url: "/api/todo/" + id,
       data: {
-        complete: true
+        complete: true,
+        where: {
+          id: id
+        }
         // UserId: userID, // <<------ corect info??
         // id: id
       }
