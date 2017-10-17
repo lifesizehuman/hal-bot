@@ -104,8 +104,11 @@ module.exports = function(app) {
     });
   });
 
+  var fbID;
+
   app.post("/api/newUser/:id", function(req, res) {
     let id = req.params.id;
+    fbID = id;
     db.User.findOrCreate({
       where: {
         fb_ID: id
@@ -115,19 +118,25 @@ module.exports = function(app) {
     });
   });
 
-  app.get("/api/todo/:id", function(req, res) {
+  app.get("/api/todo/", function(req, res) {
     let id = req.params.id;
-    let query = {};
-    if (req.query.id) {
-      query.UserId = req.query.fb_ID;
-    }
-    console.log(id);
+    // let query = {};
+    // if (req.query.id) {
+    //   query.UserId = req.query.fb_ID;
+    // }
+
     db.Todo.findAll({
       where: {
-        UserId: id
-        // complete: false
+        UserId: fbID,
+        complete: false
       },
-      include: [{ model: db.User }]
+      include: [{
+        model: db.User,
+        where: {
+          fb_ID: fbID
+        },
+        required: false
+      }]
     }).then(function(dbTodo) {
       res.json(dbTodo);
     });
@@ -136,13 +145,13 @@ module.exports = function(app) {
   app.post("/api/addTodo/", function(req, res) {
     db.Todo.create({
       task: req.body.task,
-      UserId: req.body.id
+      UserId: fbID
     }).then(function(dbTodo) {
       res.json(dbTodo);
     });
   });
 
-  app.put("/api/todo/", function(req, res) {
+  app.put("/api/todo/:id", function(req, res) {
     let reqs = req.body;
     let updateObj = {};
 

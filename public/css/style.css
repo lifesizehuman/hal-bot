@@ -36,3 +36,12 @@
 .fb-login-button {
   margin: 10px;
 }
+
+.todo-item {
+  font-size: 14px;
+}
+
+.well {
+  margin-bottom: 0;
+  text-align: center;
+}
