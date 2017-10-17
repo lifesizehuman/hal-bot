@@ -7,7 +7,7 @@ var basename  = path.basename(__filename);
 var env       = process.env.NODE_ENV || 'development';
 var config;
 var db        = {};
-var devMode   = false;
+var devMode   = true;
 
 if (devMode) {
   config    = require(__dirname + '/../config/devcon.json')[env];

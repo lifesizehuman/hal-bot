@@ -3,6 +3,6 @@ $(document).ready(function() {
     type: "GET",
     url: "/api/reg"
   }).then((userCount) => {
-    console.log(userCount);
+    $("#userCount").text(userCount);
   });
 });
