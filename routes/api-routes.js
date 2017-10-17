@@ -121,7 +121,7 @@ module.exports = function(app) {
         UserId: id
         // complete: false
       },
-      include: [{ model: db.User }]
+      include: [{ model: db.User, as: "fb_ID" }]
     }).then(function(dbTodo) {
       res.json(dbTodo);
     });
