@@ -64,7 +64,7 @@ function createTodo(task, userID) {
     url: "/api/addTodo",
     data: {
       task: task,
-      UserID: userID
+      UserId: userID
     }
   }).then(() => getTodos());
 }
