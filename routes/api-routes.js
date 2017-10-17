@@ -109,7 +109,7 @@ module.exports = function(app) {
     });
   });
 
-  app.get("/api/todo/", function(req, res) {
+  app.get("/api/todo/:id", function(req, res) {
     let id = req.body.UserId;
     let query = {};
     if (req.query.id) {
