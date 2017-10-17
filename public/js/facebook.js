@@ -4,12 +4,7 @@ $(document).ready(function() {
   var id;
   let userID;
   window.fbAsyncInit = function() {
-    FB.init({
-      appId: '129221391068505',
-      autoLogAppEvents: true,
-      xfbml: true,
-      version: 'v2.10'
-    });
+    FB.init({appId: '129221391068505', autoLogAppEvents: true, xfbml: true, version: 'v2.10'});
     FB.AppEvents.logPageView();
     FB.getLoginStatus(function(response) {
       let userID = response.authResponse.userID;
@@ -33,7 +28,6 @@ $(document).ready(function() {
     js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=129221391068505";
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
-
 
   var myToDos = [];
 
@@ -91,10 +85,7 @@ $(document).ready(function() {
   // }
 
   function getTodos(id) {
-    $.ajax({
-      type: "GET",
-      url: "/api/todo/"
-    }).then((data) => {
+    $.ajax({type: "GET", url: "/api/todo/"}).then((data) => {
       myToDos = data;
       initializeRows();
       // // clearTodos();
@@ -114,7 +105,8 @@ $(document).ready(function() {
     }).then(() => getTodos());
   }
 
-  function completeTodo(event) {
+  function completeTodo(event, todo) {
+    var id = todo.id;
     $.ajax({
       type: "PUT",
       url: "/api/todo/" + id,
@@ -126,8 +118,9 @@ $(document).ready(function() {
     }).then(() => getTodos());
   }
 
-  function deleteToDo(event) {
-    var id = $(this).data("id");
+  function deleteToDo(event, todo) {
+    event.stopPropagation();
+    var id = todo.id;
     console.log(id);
     $.ajax({
       type: "DELETE",
