@@ -115,7 +115,7 @@ module.exports = function(app) {
     });
   });
 
-  app.get("/api/todo/:id", function(req, res) {
+  app.get("/api/todo/", function(req, res) {
     // console.log(req.params.id);
     // let id = req.params.id;
     // let query = {};
