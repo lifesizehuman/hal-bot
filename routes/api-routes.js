@@ -123,21 +123,21 @@ module.exports = function(app) {
     //   query.UserId = req.query.fb_ID;
     // }
     console.log(req.body);
-    db.Todo.findAll({
-      where: {
-        UserId: id,
-        complete: false
-      },
-      include: [{
-        model: db.User,
-        where: {
-          fb_ID: req.params.id
-        },
-        required: false
-      }]
-    }).then(function(dbTodo) {
-      res.json(dbTodo);
-    });
+    // db.Todo.findAll({
+    //   where: {
+    //     UserId: id,
+    //     complete: false
+    //   },
+    //   include: [{
+    //     model: db.User,
+    //     where: {
+    //       fb_ID: req.params.id
+    //     },
+    //     required: false
+    //   }]
+    // }).then(function(dbTodo) {
+    //   res.json(dbTodo);
+    // });
   });
 
   app.post("/api/addTodo/", function(req, res) {

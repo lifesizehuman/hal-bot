@@ -57,7 +57,7 @@ $(document).ready(function() {
   function getTodos(id) {
     $.ajax({
       type: "GET",
-      url: "/api/todo/" + id
+      url: "/api/todo/"
     }).then((data) => {
       clearTodos();
       data.map((entry) => insertTodo(entry));
