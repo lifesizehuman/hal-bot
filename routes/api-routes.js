@@ -11,6 +11,12 @@ module.exports = function(app) {
     res.render("index");
   });
 
+  app.get("/api/reg", function(req, res) {
+    db.User.findAndCountAll().then(dbUser => {
+      res.json(dbUser.count);
+    });
+  });
+
   app.get("/api/query/:q", function(req, res) {
     let queryAction = ww.action(req.params.q);
     let redPath = `/api/${queryAction.action}/${queryAction.query}`;
