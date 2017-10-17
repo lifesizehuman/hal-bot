@@ -138,7 +138,7 @@ module.exports = function(app) {
         required: false
       }]
     }).then(function(dbTodo) {
-      console.log(res.body);
+      console.log(dbTodo);
       res.json(dbTodo);
     });
   });
