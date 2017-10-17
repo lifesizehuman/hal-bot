@@ -1,5 +1,6 @@
 $(document).ready(function() {
   var $todoContainer = $("#todos");
+  var $newToDoInput = $("#todo-input");
   var id;
   let userID;
   window.fbAsyncInit = function() {
@@ -124,6 +125,14 @@ $(document).ready(function() {
     }).then(() => getTodos());
   }
 
+  function deleteToDo(event) {
+    var id = $(this).data("id");
+    $.ajax({
+      type: "DELETE",
+      url: "/api/todo" + id
+    }).done(() => getTodos());
+  }
+
   // function updateTask(id, task) {
   //   $.ajax({
   //     type: "PUT",
@@ -141,7 +150,7 @@ $(document).ready(function() {
     let task = $("#todo-input").val();
     if (!task)
       return;
-    createTodo(task);
+    createTodo(task).then($newToDoInput.val(""));
   });
 
   // $(document).on("input", ".todo-item", function(event) {
@@ -154,6 +163,6 @@ $(document).ready(function() {
   $(document).on("click", 'delete-todo', function(event) {
     event.preventDefault();
     let id = $(this).attr("data-id");
-    completeTodo(id);
+    deleteToDo(id);
   });
 });
