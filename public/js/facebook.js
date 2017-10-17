@@ -106,7 +106,7 @@ $(document).ready(function() {
   }
 
   function completeTodo(todo) {
-    var id = $(this).data("id");
+    var id = $(this).data(todo.id);
     $.ajax({
       type: "PUT",
       url: "/api/todo/",
