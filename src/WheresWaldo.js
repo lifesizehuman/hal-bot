@@ -1,7 +1,6 @@
 "use strict"
 
-const nlp                = require("naivenlp.js");
-const nlp2               = require("naivenlp");
+const nlp                = require("naivenlp");
 const celebs             = require("../node_modules/celebs/data/json/no-views/pantheon.json");
 
 const DistanceSearch     = require("./distancesearch.js");
@@ -49,7 +48,7 @@ function WheresWaldo() {
       if(isMovie) return {action:"movie", query: movieQ};
 
       // Parse Famous Name
-      let nameParse = nlp.parse(str, {stems:true, fixSp:true, w2n:true, extMath: true});
+      let nameParse = nlp.parse(str, {stems:true, fixSp:true, w2n:true, isoMath: true});
       let split     = nameParse.split(" ");
       let fames =[];
       let dc = new DistanceComparator({dice:{val:nameParse}},{human:true});
