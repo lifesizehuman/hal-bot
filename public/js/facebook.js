@@ -48,7 +48,7 @@ $(document).ready(function() {
     var $newInputRow = $([
       "<li class='list-group-item todo-item'>",
       "<span class='todo-item'>",
-      todo.task + todo.id,
+      todo.task,
       "</span>",
       "<button class='delete pull-right'>x</button>",
       "<button class='complete pull-right'>✓</button>",
