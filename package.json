@@ -31,6 +31,7 @@
     "method-override": "^2.3.10",
     "mysql": "^2.15.0",
     "mysql2": "^1.4.2",
+    "naivenlp": "^0.1.5",
     "popper.js": "^1.12.5",
     "regex": "^0.1.1",
     "regreplacer": "^1.1.5",
