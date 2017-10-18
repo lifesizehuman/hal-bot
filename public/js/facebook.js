@@ -126,9 +126,9 @@ $(document).ready(function() {
   }
 
   function deleteToDo() {
-    // for (var i = 0; i < myToDos.length; i++) {
-    //   var id = myToDos[i].id;
-    // }
+    for (var i = 0; i < myToDos.length; i++) {
+      var id = myToDos[i].id;
+    }
     $.ajax({
       type: "DELETE",
       url: "/api/todo/" + id,
