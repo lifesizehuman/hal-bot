@@ -51,7 +51,7 @@ $(document).ready(function() {
       todo.task,
       "</span>",
       "<button class='delete pull-right'>x</button>",
-      "<button class='complete pull-right'>✓</button>",
+      // "<button class='complete pull-right'>✓</button>",
       "</li>"
     ].join(""));
 
