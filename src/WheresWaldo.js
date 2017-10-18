@@ -21,7 +21,7 @@ function WheresWaldo() {
       let mathParse = nlp.parse(str, { stems: true });
       if(isMath(mathParse)) return {action:"math",query:mathParse};
 
-      let twitParse = nlp.parse(str, {extMath: true});
+      let twitParse = nlp.parse(str, {isoMath: true});
       let isTwit = (twitParse.split(" ").indexOf("twitter") !== -1)
                 || (twitParse.split(" ").indexOf("tweet") !== -1);
       if(isTwit) {
@@ -32,10 +32,10 @@ function WheresWaldo() {
       }
 
       // Parse for weather
-      let weatherWordParse = nlp.parse(str, {stems:true, extMath: true});
+      let weatherWordParse = nlp.parse(str, {stems:true, isoMath: true});
       let weatherSplit = weatherWordParse.split(" ");
       let isWeather = weatherSplit.indexOf("weather") !== -1 || weatherSplit.indexOf("temperature") !== -1;
-      let weatherLocParse = nlp.parse(str, {stems:true, fixSp:true, extMath: true});
+      let weatherLocParse = nlp.parse(str, {stems:true, fixSp:true, isoMath: true});
       if(isWeather) {
          weatherLocParse = weatherLocParse.replace("weather","");
          weatherLocParse = weatherLocParse.replace("temperature","");
