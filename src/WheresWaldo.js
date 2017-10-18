@@ -1,6 +1,6 @@
 "use strict"
 
-const nlp                = require("naivenlp-old.js");
+const nlp                = require("naivenlp.js");
 const nlp2               = require("naivenlp");
 const celebs             = require("../node_modules/celebs/data/json/no-views/pantheon.json");
 
@@ -19,7 +19,7 @@ function isMath(str) {
 function WheresWaldo() {
    this.action = function(str) {
       // Parse Math
-      let mathParse = nlp2.parse(str, { stems: true });
+      let mathParse = nlp.parse(str, { stems: true });
       if(isMath(mathParse)) return {action:"math",query:mathParse};
 
       let twitParse = nlp.parse(str, {extMath: true});
